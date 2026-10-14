@@ -111,7 +111,13 @@ header { position: sticky; top: 0; z-index: 20; background: var(--bg); padding-t
 .more li { position: relative; padding-left: 12px; line-height: 1.35; }
 .more li::before { content: ''; position: absolute; left: 0; top: 7px; width: 5px; height: 5px; border-radius: 50%; background: var(--turq); }
 .more .note { margin-top: 8px; padding: 8px 10px; border-radius: 10px; border: 1px dashed var(--line2); color: var(--muted); font-size: 12px; }
-.more a { color: var(--turq); }
+.more a { color: var(--turq); text-decoration: none; font-weight: 600; }
+.libs { margin-top: 10px; display: flex; flex-direction: column; gap: 8px; }
+.lib { display: flex; flex-direction: column; gap: 3px; font-size: 12.5px; }
+.lib span { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--dim); }
+.ill { display: flex; flex-wrap: wrap; gap: 4px 6px; align-items: baseline; }
+.ill i { font-style: normal; color: var(--dim); }
+.lib small { color: var(--muted); font-size: 11.5px; line-height: 1.35; }
 .tip { margin: 10px 2px 0; font-size: 11.5px; color: var(--dim); }
 
 /* bottom bar */
@@ -202,33 +208,35 @@ const MAHI_NOTE = 'Зачёт по первым трём подходам. Ес�
 const PROG = [
   { label: 'День 1', wd: 'Пн', ex: [
     { id: 'd1e1', name: 'Жим ногами', short: 'жим ногами', garmin: 'Жим ногами', warm: [W(1, 5, 180, '1:30')], sets: 3, reps: 5, unit: 'r', w: 260, kind: 'leg', rest: '2:30', tech: 'Стопы на ширине плеч в середине платформы; колени по линии носков, не внутрь; вниз до ~90° в коленях, таз и поясница прижаты; наверху колени не защёлкивать, толкать всей стопой' },
-    { id: 'd1e2', name: 'Румынская тяга на блоке', short: 'румынская тяга', garmin: 'Становая тяга на прямых ногах', warm: [W(1, 5, 15, '0:45')], sets: 3, reps: 8, unit: 'r', w: 27.5, kind: 'machine', rest: '1:30', tech: 'Колени чуть согнуты и не меняют угол; таз назад, спина ровная; вниз до натяжения задней поверхности бедра; вверх — таз вперёд, сжать ягодицы, без прогиба назад', note: 'Встать ближе к блоку: на 13.10 блок тянул вперёд — ограничение было по технике, не по силе.' },
+    { id: 'd1e2', name: 'Румынская тяга на блоке', short: 'румынская тяга', garmin: 'Становая тяга на прямых ногах', warm: [W(1, 5, 15, '0:45')], sets: 3, reps: 8, unit: 'r', w: 27.5, kind: 'machine', rest: '1:30', tech: 'Стоять вплотную к блоку, чтобы трос шёл почти вертикально; колени чуть согнуты и не меняют угол; таз назад, спина ровная; вниз до натяжения задней поверхности бедра; вверх — таз вперёд, сжать ягодицы, без прогиба назад' },
     { id: 'd1e3', name: 'Жим штанги лёжа', short: 'жим лёжа', garmin: 'Жим штанги лежа', warm: [W(1, 5, 50, '1:30')], sets: 3, reps: 8, unit: 'r', w: 70, kind: 'bar', rest: '1:45', tech: 'Лопатки сведены и опущены, стопы в пол; хват чуть шире плеч, запястья над локтями; гриф к низу груди, локти 45–70° к корпусу; без отбива от груди; страховка на тяжёлых подходах' },
     { id: 'd1e4', name: 'Тяга верхнего блока', short: 'тяга верхнего блока', garmin: 'Тяга верхнего блока к груди', sets: 3, reps: 10, unit: 'r', w: 55, kind: 'machine', rest: '1:30', tech: 'Хват чуть шире плеч; начать с опускания лопаток, тянуть локтями вниз к верху груди; отклон 10–15°, без раскачки; наверху полностью выпрямить руки' },
-    { id: 'd1e5', name: 'Махи гантелей в стороны', short: 'махи', garmin: 'Разведение рук с гантелями в стороны', sets: 4, reps: 15, unit: 'r', w: 20, kind: 'db', rest: '1:30', note: MAHI_NOTE, tech: 'Локти чуть согнуты, корпус слегка вперёд; до уровня плеч, ведут локти; плечи не поднимать; без раскачки, опускание медленно' },
+    { id: 'd1e5', name: 'Махи гантелей в стороны', short: 'махи', garmin: 'Разведение рук с гантелями в стороны', sets: 4, reps: 15, unit: 'r', w: 20, kind: 'db', rest: '1:30', note: MAHI_NOTE, tech: 'Корпус наклонён вперёд на 10–15°, локти согнуты на 15–20° и зафиксированы; руки ~30° впереди линии плеч; до уровня плеч, ведут локти (выше кистей); плечи не поднимать; без раскачки, опускание медленно' },
     { id: 'd1e6', name: 'Подъём на носки сидя', short: 'носки сидя', garmin: 'Подъем на носках с отягощением сидя', sets: 3, reps: 10, unit: 'r', w: 37.5, kind: 'machine', rest: '1:00', tech: 'Валик у колен; внизу растяжение и пауза 1 с, без отскока; вверху максимально высоко, давление через основание большого пальца' },
     { id: 'd1e7', name: 'Рычажный тренажёр на бицепс', short: 'бицепс рычажный', garmin: 'Сгибание на бицепс на тросовом тренажере', sets: 3, reps: 12, unit: 'r', w: 22.5, kind: 'machine', rest: '1:00', tech: 'Локти на оси тренажёра, прижаты к подушке; внизу почти полное разгибание, вес не бросать; плечи и локти не поднимаются' },
   ]},
   { label: 'День 2', wd: 'Ср', ex: [
-    { id: 'd2e1', name: 'Тяга Т-грифа', short: 'Т-гриф', garmin: 'Тяга штанги в наклоне', warm: [W(1, 10, 25, '1:00')], sets: 3, reps: 8, unit: 'r', w: 47.5, kind: 'bar', rest: '1:45', tech: 'Наклон ~45°, спина ровная, колени мягкие; тянуть к низу груди, локти назад вдоль корпуса; корпус неподвижен, без рывка; внизу руки полностью выпрямлены' },
-    { id: 'd2e2', name: 'Жим на грудь в блочном тренажёре', short: 'жим в блочном', garmin: 'Жим от груди на подвесном тренажере', sets: 3, reps: 10, unit: 'r', w: 67.5, kind: 'machine', rest: '1:30', tech: 'Рукояти на уровне середины груди; лопатки сведены, грудь вперёд, плечи не выходят вперёд; локти не защёлкивать; назад медленно до лёгкого растяжения' },
-    { id: 'd2e3', name: 'Жим гантелей сидя', short: 'жим гантелей сидя', garmin: 'Жим гантелей сидя', sets: 3, reps: 10, unit: 'r', w: 30, kind: 'db', rest: '1:30', tech: 'Спинка почти вертикальная, лопатки и таз прижаты; предплечья вертикальны, старт на уровне плеч; вверх и чуть внутрь, без стука гантелей; поясницу дугой не прогибать' },
-    { id: 'd2e4', name: 'Горизонтальная тяга с упором в грудь', short: 'тяга с упором в грудь', garmin: 'Тяга на блоке к поясу сидя', sets: 3, reps: 12, unit: 'r', w: 50, kind: 'machine', rest: '1:30', tech: 'Грудь всё время на упоре; локти назад, в конце свести лопатки; плечи не поднимать; вперёд — полное выпрямление рук' },
-    { id: 'd2e5', name: 'Обратная бабочка', short: 'обратная бабочка', garmin: 'Разведение рук в стороны сидя', sets: 3, reps: 15, unit: 'r', w: 10, kind: 'machine', rest: '1:00', tech: 'Грудь к спинке, рукояти на уровне плеч; локти слегка согнуты, угол постоянный; руки назад по дуге, плечи не поднимаются' },
-    { id: 'd2e6', name: 'Сгибание рук на нижнем блоке', short: 'бицепс на блоке', garmin: 'Сгибание на бицепс на тросовом тренажере', sets: 3, reps: 12, unit: 'r', w: 20, kind: 'machine', rest: '1:00', tech: 'Стоять близко к блоку; локти у боков и неподвижны; внизу полное разгибание; без раскачки корпусом, наверху сжатие' },
-    { id: 'd2e7', name: 'Отжимания в тренажёре сидя (Seated Dip)', short: 'отжимания в тренажёре', garmin: 'Жим Вниз На Трицепс', sets: 3, reps: 12, unit: 'r', w: 90, kind: 'machine', rest: '1:00', tech: 'Лопатки опущены и сведены, плечи не поднимаются к ушам; корпус вертикально или чуть вперёд; локти идут назад вдоль корпуса, не в стороны; вниз до ~90° в локтях, не глубже; вверху руки почти прямые, локти не защёлкивать; без рывка' },
+    { id: 'd2e1', name: 'Тяга Т-грифа с упором грудью', short: 'Т-гриф', garmin: 'Тяга штанги в наклоне', warm: [W(1, 10, 25, '1:00')], sets: 3, reps: 8, unit: 'r', w: 47.5, kind: 'bar', rest: '1:45', tech: 'Высота подушки — верх груди на подушке, руки свободно висят и достают до рукоятей; грудь прижата к подушке весь подход, не отрывать её при подъёме; стопы упираются в платформу, колени мягкие, поясница нейтральная, без прогиба; тянуть к низу груди, локти назад вдоль корпуса; внизу руки полностью выпрямлены' },
+    { id: 'd2e2', name: 'Жим от груди сидя в тренажёре', short: 'жим в блочном', garmin: 'Жим от груди на подвесном тренажере', sets: 3, reps: 10, unit: 'r', w: 72.5, kind: 'machine', rest: '1:30', tech: 'Высота сиденья — рукояти на уровне середины груди; спина и лопатки прижаты к спинке, лопатки сведены, плечи не выходят вперёд; жать перед собой, локти не защёлкивать; назад медленно до лёгкого растяжения груди, стек не стучит' },
+    { id: 'd2e3', name: 'Жим гантелей сидя', short: 'жим гантелей сидя', garmin: 'Жим гантелей сидя', sets: 3, reps: 10, unit: 'r', w: 32, kind: 'db', rest: '1:30', tech: 'Спинка почти вертикальная, лопатки и таз прижаты; предплечья вертикальны, старт на уровне плеч; вверх и чуть внутрь, без стука гантелей; поясницу дугой не прогибать', note: '+шаг: следующая гантель после 16 кг (17 или 18 на каждую руку), 3 × 10. Гантелей по 15 в зале не было.' },
+    { id: 'd2e4', name: 'Горизонтальная тяга с упором в грудь', short: 'тяга с упором в грудь', garmin: 'Тяга на блоке к поясу сидя', sets: 3, reps: 12, unit: 'r', w: 50, kind: 'machine', rest: '1:30', tech: 'Сиденье и упор — грудь на подушке, руки выпрямлены и достают рукояти с лёгким натяжением; грудь прижата весь подход; локти высоко и в стороны (~60–80° от корпуса), как задумано тренажёром; тянуть к линии груди, в конце свести лопатки; плечи не поднимать к ушам; вперёд — полное выпрямление рук с растяжением между лопатками' },
+    { id: 'd2e5', name: 'Обратная бабочка', short: 'обратная бабочка', garmin: 'Разведение рук в стороны сидя', sets: 3, reps: 15, unit: 'r', w: 12.5, kind: 'machine', rest: '1:00', tech: 'Грудь к спинке, рукояти на уровне плеч; локти слегка согнуты, угол постоянный; руки назад по дуге, плечи не поднимаются' },
+    { id: 'd2e6', name: 'Сгибание рук на нижнем блоке', short: 'бицепс на блоке', garmin: 'Сгибание на бицепс на тросовом тренажере', sets: 3, reps: 12, unit: 'r', w: 17.5, kind: 'machine', rest: '1:00', tech: 'Стоять близко к блоку; локти у боков и неподвижны; внизу полное разгибание; без раскачки корпусом, наверху сжатие', note: 'На 20 кг ломалась техника — работаем с 17,5.' },
+    { id: 'd2e7', name: 'Отжимания в тренажёре сидя', short: 'отжимания в тренажёре', garmin: 'Жим Вниз На Трицепс', sets: 3, reps: 12, unit: 'r', w: 92.5, kind: 'machine', rest: '1:00', tech: 'Лопатки опущены и сведены, плечи не поднимаются к ушам; корпус вертикально или чуть вперёд; локти идут назад вдоль корпуса, не в стороны; вниз до ~90° в локтях, не глубже; вверху руки почти прямые, локти не защёлкивать; без рывка', note: 'Минимальный шаг блинов: 92,5, если нет — 95.' },
   ]},
   { label: 'День 3', wd: 'Пт', ex: [
     { id: 'd3e1', name: 'Шаги на платформу с гантелями', short: 'шаги на платформу', garmin: 'Подъем С Гантелями На Возвышение', warm: [W(1, 5, 12, '1:00')], sets: 3, reps: 8, unit: 'leg', w: 16, kind: 'db', rest: '1:45', tech: 'Высота — колено не больше 90°; стопа целиком на платформе, толчок пяткой рабочей ноги, задняя почти не помогает; колено по линии носка; спуск медленно; сначала все повторы одной ногой, потом другой', note: 'В Garmin повторы считаются на обе ноги: разминка 10, рабочие 16.' },
     { id: 'd3e2', name: 'Сгибания ног сидя', short: 'сгибания ног сидя', garmin: 'Сгибание ног с отягощением', sets: 3, reps: 12, unit: 'r', w: 65, kind: 'machine', rest: '1:30', tech: 'Колено на оси тренажёра, валик над пятками, бедро прижато; сгибать полностью, сжатие внизу; возврат медленно, таз не отрывается' },
-    { id: 'd3e3', name: 'Сведение рук в тренажёре (баттерфляй)', short: 'баттерфляй', garmin: 'Сведение рук на подвесном тренажере', sets: 3, reps: 12, unit: 'r', w: 47.5, kind: 'machine', rest: '1:00', tech: 'Рукояти на уровне середины груди, лопатки прижаты к спинке; локти слегка согнуты, угол постоянный; свести по дуге до касания; назад до умеренного растяжения, без боли в плече' },
-    { id: 'd3e4', name: 'Тяга верхнего блока нейтральным хватом', short: 'тяга верхнего нейтральным', garmin: 'Тяга верхнего блока к груди узким хватом', sets: 3, reps: 10, unit: 'r', w: 57.5, kind: 'machine', rest: '1:30', tech: 'Начать с опускания лопаток; тянуть к верху груди, локти вниз вдоль корпуса; без раскачки; наверху полностью выпрямить руки' },
-    { id: 'd3e5', name: 'Махи гантелей в стороны', short: 'махи', garmin: 'Разведение рук с гантелями в стороны', sets: 4, reps: 15, unit: 'r', w: 20, kind: 'db', rest: '1:30', note: MAHI_NOTE, tech: 'Локти чуть согнуты, корпус слегка вперёд; до уровня плеч, ведут локти; плечи не поднимать; без раскачки, опускание медленно' },
+    { id: 'd3e3', name: 'Пек-дек', short: 'пек-дек', garmin: 'Сведение рук на подвесном тренажере', sets: 3, reps: 12, unit: 'r', w: 47.5, kind: 'machine', rest: '1:00', tech: 'Высота сиденья — локти на уровне плеч или чуть ниже, согнуты ~90°; предплечья и локти прижаты к подушкам, кисти расслаблены — давить локтями, не кистями; лопатки прижаты к спинке, грудь вперёд; свести подушки перед грудью, пауза 1 с; назад медленно до умеренного растяжения груди, плечи не выходят вперёд, без боли в плече' },
+    { id: 'd3e4', name: 'Тяга верхнего блока нейтральным хватом', short: 'тяга верхнего нейтральным', garmin: 'Тяга верхнего блока к груди узким хватом', sets: 3, reps: 10, unit: 'r', w: 57.5, kind: 'machine', rest: '1:30', tech: 'Хват нейтральный на ширине плеч (ладони друг к другу); начать с опускания лопаток; тянуть к верху груди, локти вниз вдоль корпуса; отклон 10–15°, без раскачки; наверху полностью выпрямить руки' },
+    { id: 'd3e5', name: 'Махи гантелей в стороны', short: 'махи', garmin: 'Разведение рук с гантелями в стороны', sets: 4, reps: 15, unit: 'r', w: 20, kind: 'db', rest: '1:30', note: MAHI_NOTE, tech: 'Корпус наклонён вперёд на 10–15°, локти согнуты на 15–20° и зафиксированы; руки ~30° впереди линии плеч; до уровня плеч, ведут локти (выше кистей); плечи не поднимать; без раскачки, опускание медленно' },
     { id: 'd3e6', name: 'Отведение бедра', short: 'отведение бедра', garmin: 'Укрепление бедер', sets: 3, reps: 20, unit: 'r', w: 70, kind: 'machine', rest: '1:00', tech: 'Спина прижата, таз неподвижен; развести колени максимально, пауза 1 с; возврат медленно, вес не бросать; корпус не раскачивать' },
-    { id: 'd3e7', name: 'Подъём на носки стоя', short: 'носки стоя', garmin: 'Подъем на носках с отягощением стоя', sets: 3, reps: 10, unit: 'r', w: 60, kind: 'machine', rest: '1:30', tech: 'Ноги прямые, колени не защёлкнуты; носки на краю платформы; внизу растяжение и пауза 1 с, вверху максимально высоко; без отскока и сгибания коленей' },
+    { id: 'd3e7', name: 'Подъём на носки стоя', short: 'носки стоя', garmin: 'Подъем на носках с отягощением стоя', sets: 3, reps: 10, unit: 'r', w: null, kind: 'machine', rest: '1:30', tech: 'Ноги прямые, колени не защёлкнуты; на краю платформы только подушечки стоп, пятки свисают; внизу растяжение и пауза 1 с, вверху максимально высоко; без отскока и сгибания коленей', note: 'Вес подбирается заново (калибровка).' },
     { id: 'd3e8', name: 'Боковая планка', short: 'боковая планка', garmin: 'Упражнение "Боковая планка"', sets: 2, reps: 50, unit: 'sec', w: 0, kind: 'bw', rest: '1:00', noRir: true, tech: 'Локоть под плечом; голова, таз и стопы на одной линии; таз не провисает и не разворачивается; дышать ровно', note: 'В Garmin — 4 × 0:50, чередуя стороны.' },
   ]},
 ];
+const ILL = {"d1e1": [{"t": "Pure Strength Linear Leg Press", "u": "https://ddxfitness.me/machines_manuals/exercise_detail/268"}], "d1e2": [{"t": "MuscleWiki: нижний блок", "u": "https://musclewiki.com/ru-ru/exercise/cable-bar-romanian-deadlift"}], "d1e3": [{"t": "Жим лёжа (база зала)", "u": "https://ddxfitness.me/machines_manuals/exercise_detail/496"}], "d1e4": [{"t": "Selection 700 Lat Machine", "u": "https://ddxfitness.me/machines_manuals/exercise_detail/272"}], "d1e5": [{"t": "StrengthLog", "u": "https://www.strengthlog.com/dumbbell-lateral-raise/"}], "d1e6": [{"t": "Foreman, подъём на носки сидя", "u": "https://ddxfitness.me/machines_manuals/exercise_detail/296"}], "d1e7": [{"t": "Pure Strength Biceps", "u": "https://ddxfitness.me/machines_manuals/exercise_detail/243"}], "d2e1": [{"t": "Technogym T-Bar Row", "u": "https://ddxfitness.me/machines_manuals/exercise_detail/289"}], "d2e2": [{"t": "Selection 900 Chest Press", "u": "https://ddxfitness.me/machines_manuals/exercise_detail/263"}], "d2e3": [{"t": "Жим гантелей от плеч (база зала)", "u": "https://ddxfitness.me/machines_manuals/exercise_detail/498"}], "d2e4": [{"t": "Selection 900 Upper Back", "u": "https://ddxfitness.me/machines_manuals/exercise_detail/273"}], "d2e5": [{"t": "Selection 700 Dual Pectoral / Reverse Fly", "u": "https://ddxfitness.me/machines_manuals/exercise_detail/253"}], "d2e6": [{"t": "Сгибание на нижнем блоке (база зала)", "u": "https://ddxfitness.me/machines_manuals/exercise_detail/286"}], "d2e7": [{"t": "Pure Strength Seated Dip", "u": "https://ddxfitness.me/machines_manuals/exercise_detail/267"}], "d3e1": [{"t": "StrengthLog", "u": "https://www.strengthlog.com/step-up/"}], "d3e2": [{"t": "Selection 700 Leg Curl", "u": "https://ddxfitness.me/machines_manuals/exercise_detail/250"}], "d3e3": [{"t": "Selection Pectoral", "u": "https://ddxfitness.me/machines_manuals/exercise_detail/251"}], "d3e4": [{"t": "StrengthLog", "u": "https://www.strengthlog.com/lat-pulldown-with-neutral-grip/"}], "d3e5": [{"t": "StrengthLog", "u": "https://www.strengthlog.com/dumbbell-lateral-raise/"}], "d3e6": [{"t": "Selection 900 Abductor", "u": "https://ddxfitness.me/machines_manuals/exercise_detail/368"}], "d3e7": [{"t": "стоя", "u": "https://www.strengthlog.com/standing-calf-raise/"}, {"t": "в жиме ногами", "u": "https://www.strengthlog.com/calf-raise-in-leg-press/"}], "d3e8": [{"t": "StrengthLog", "u": "https://www.strengthlog.com/side-plank/"}]};
+const PLATES = ["d1e1", "d1e6", "d1e7", "d2e1", "d2e7"];
 const WARM = [
   ['Эллипс или велотренажёр, лёгкий темп', '5 мин'],
   ['Круговые вращения прямыми руками', 'по 10 вперёд и назад'],
@@ -243,7 +251,7 @@ const STEP = { leg: 10, bar: 2.5, machine: 2.5, db: 2, bw: 0 };
 const RIRS = ['0', '1', '2', '3', '4+'];
 
 /* ---------- state ---------- */
-const blankS = () => ({ rirC: '', dev: '', devC: '', tech: '', techC: '', pain: '', painWhere: '', painEx: [], painScore: '', painC: '', comment: '', out: '' });
+const blankS = () => ({ calf: '', rirC: '', dev: '', devC: '', tech: '', techC: '', pain: '', painWhere: '', painEx: [], painScore: '', painC: '', comment: '', out: '' });
 const blankR = () => ({ tm: '', tmStart: '', tmEnd: '', tmIncl: '', tmC: '', exec: '', execC: '', hr: '', hrC: '', cond: [], condC: '', pain: '', painWhere: '', painWhen: '', painScore: '', painC: '', comment: '', out: '' });
 function load() {
   let s = null;
@@ -286,8 +294,8 @@ const sForm = (di = S.day) => S.sForm[di] || (S.sForm[di] = blankS());
 const techList = e => String(e.tech || '').split(/\n+|;\s*/).map(t => t.trim()).filter(Boolean).map(t => t[0].toUpperCase() + t.slice(1));
 const repsTxt = e => `${e.sets}×${e.reps}`;
 const repsSub = e => e.unit === 'leg' ? 'на ногу' : e.unit === 'sec' ? 'сек на сторону' : '';
-const wMain = e => e.kind === 'bw' ? '—' : fmt(e.w);
-const wSub = e => e.kind === 'bw' ? 'свой вес' : e.kind === 'db' ? `2×${fmt(e.w / 2)}` : 'кг';
+const wMain = e => e.kind === 'bw' ? '—' : e.w == null ? '?' : fmt(e.w);
+const wSub = e => e.kind === 'bw' ? 'свой вес' : e.w == null ? 'подобрать' : e.id === 'd2e3' && !(S.edits[e.id] && S.edits[e.id].w != null) ? '2×16 ↑' : e.kind === 'db' ? `2×${fmt(e.w / 2)}` : 'кг';
 
 const I = {
   check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>',
@@ -300,6 +308,11 @@ const I = {
   up: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 15l6-6 6 6"/></svg>',
   down: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>',
 };
+function libHtml(e) {
+  const links = [...(S.links[e.id] ? [{ t: 'Моё видео', u: S.links[e.id] }] : []), ...(ILL[e.id] || [])];
+  if (!links.length) return '';
+  return `<div class="libs"><div class="lib"><span>Иллюстрация</span><div class="ill">${links.map(v => `<a href="${esc(v.u)}" target="_blank" rel="noopener">${esc(v.t)} ↗</a>`).join('<i>·</i>')}</div>${PLATES.includes(e.id) ? '<small>Тренажёр на блинах: записывать вес блинов без веса рычага или салазок.</small>' : ''}<small>Где иллюстрация расходится с техникой выше — верна техника.</small></div></div>`;
+}
 const scribble = '<svg viewBox="0 0 100 9" preserveAspectRatio="none"><path d="M1 6 C 20 2, 35 8, 55 4 S 85 3, 99 5" fill="none" stroke="var(--scribble)" stroke-width="2.6" stroke-linecap="round"/></svg>';
 
 /* ---------- render ---------- */
@@ -355,7 +368,7 @@ function pageMain() {
         <div class="cell rest">${esc(e.rest)}</div>
         <button class="ck ${isDone ? 'on' : ''}" data-a="done" data-id="${e.id}" aria-label="Выполнено">${isDone ? I.check : ''}</button>
       </div>
-      ${open ? `<div class="more"><div class="g">Garmin: ${esc(e.garmin)}</div><ul>${techList(e).map(t => `<li>${esc(t)}</li>`).join('')}</ul>${e.note ? `<div class="note">${esc(e.note)}</div>` : ''}${S.links[e.id] ? `<div style="margin-top:8px"><a href="${esc(S.links[e.id])}" target="_blank" rel="noopener">Видео техники ↗</a></div>` : ''}</div>` : ''}
+      ${open ? `<div class="more"><div class="g">Garmin: ${esc(e.garmin)}</div><ul>${techList(e).map(t => `<li>${esc(t)}</li>`).join('')}</ul>${e.note ? `<div class="note">${esc(e.note)}</div>` : ''}${libHtml(e)}</div>` : ''}
     </div>`;
   });
   h += `</section><p class="tip">Нажмите на строку — техника. Кружок справа — отметить выполненным.</p></main>`;
@@ -396,12 +409,12 @@ function pageEditor() {
       <div class="steps">
         ${stepper('Подходы', 'sets', e.sets, e.id)}
         ${stepper(e.unit === 'sec' ? 'Секунды' : e.unit === 'leg' ? 'Повторы на ногу' : 'Повторы', 'reps', e.reps, e.id)}
-        ${e.kind === 'bw' ? '' : stepper(e.kind === 'db' ? 'Вес, кг (общий)' : 'Вес, кг', 'w', fmt(e.w), e.id)}
+        ${e.kind === 'bw' ? '' : stepper(e.kind === 'db' ? 'Вес, кг (общий)' : 'Вес, кг', 'w', e.w == null ? '' : fmt(e.w), e.id)}
         <div class="stp"><label>Отдых</label><input value="${esc(e.rest)}" data-in="rest" data-id="${e.id}" style="height:36px"></div>
       </div>
       <div class="lbl2">Техника (каждый пункт с новой строки)</div>
       <textarea rows="${Math.max(3, tech.split('\n').length + 1)}" data-in="tech" data-id="${e.id}">${esc(tech)}</textarea>
-      <div class="lbl2">Ссылка на видео</div>
+      <div class="lbl2">Своя ссылка на видео (добавится к иллюстрации из программы)</div>
       <input value="${esc(S.links[e.id] || '')}" placeholder="https://…" data-in="link" data-id="${e.id}">
       <div class="row2">${e.edited ? `<span class="chg">изменено относительно программы</span><button class="link-btn" data-a="reset" data-id="${e.id}">Сбросить</button>` : '<span></span>'}</div>
     </div>`;
@@ -605,11 +618,11 @@ document.addEventListener('click', ev => {
       const e = dayEx(S.day).find(x => x.id === id), f = t.dataset.f, d = +t.dataset.d;
       if (f === 'sets') setEdit(id, { sets: Math.max(1, Math.min(10, e.sets + d)) });
       else if (f === 'reps') setEdit(id, { reps: Math.max(1, e.reps + d * (e.unit === 'sec' ? 5 : 1)) });
-      else if (f === 'w') setEdit(id, { w: Math.max(0, Math.round((e.w + d * (STEP[e.kind] || 2.5)) * 100) / 100) });
+      else if (f === 'w') setEdit(id, { w: Math.max(0, Math.round(((e.w || 0) + d * (STEP[e.kind] || 2.5)) * 100) / 100) });
       else { const k = +f.slice(2), warm = e.warm.map(x => ({ ...x })); if (f[1] === 'r') warm[k].r = Math.max(1, warm[k].r + d); else warm[k].w = Math.max(0, Math.round((warm[k].w + d * (STEP[e.kind] || 2.5)) * 100) / 100); setEdit(id, { warm }); }
       break;
     }
-    case 'wadd': { const e = dayEx(S.day).find(x => x.id === id); setEdit(id, { warm: [...e.warm.map(x => ({ ...x })), { s: 1, r: 5, w: Math.round(e.w * 0.6 / (STEP[e.kind] || 2.5)) * (STEP[e.kind] || 2.5), rest: '1:00' }] }); break; }
+    case 'wadd': { const e = dayEx(S.day).find(x => x.id === id); setEdit(id, { warm: [...e.warm.map(x => ({ ...x })), { s: 1, r: 5, w: Math.round((e.w || 0) * 0.6 / (STEP[e.kind] || 2.5)) * (STEP[e.kind] || 2.5), rest: '1:00' }] }); break; }
     case 'wdel': { const e = dayEx(S.day).find(x => x.id === id); setEdit(id, { warm: e.warm.filter((_, k) => k !== +t.dataset.k) }); break; }
     case 'reset': if (!confirm('Вернуть упражнение к программе?')) return; delete S.edits[id]; save(); break;
     case 'mv': { const ids = dayEx(S.day).map(e => e.id), i = +t.dataset.i, j = i + +t.dataset.d; [ids[i], ids[j]] = [ids[j], ids[i]]; S.order[S.day] = ids; save(); break; }
@@ -636,7 +649,7 @@ document.addEventListener('change', ev => {
     const e = dayEx(S.day).find(x => x.id === id), f = t.dataset.f, v = num(t.value);
     if (f === 'sets') setEdit(id, { sets: Math.max(1, Math.round(v)) });
     else if (f === 'reps') setEdit(id, { reps: Math.max(1, Math.round(v)) });
-    else if (f === 'w') setEdit(id, { w: Math.max(0, v) });
+    else if (f === 'w') setEdit(id, { w: t.value.trim() === '' ? null : Math.max(0, v) });
     else { const kk = +f.slice(2), warm = e.warm.map(x => ({ ...x })); if (f[1] === 'r') warm[kk].r = Math.max(1, Math.round(v)); else warm[kk].w = Math.max(0, v); setEdit(id, { warm }); }
     render(); return;
   }
