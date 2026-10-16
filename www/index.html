@@ -41,9 +41,77 @@
 [data-theme="graphite"] .title h1 svg { display: none; }
 [data-theme="graphite"] .nm { font-size: 14px; }
 [data-theme="graphite"] .cell small, [data-theme="graphite"] .wu { color: var(--muted); }
+/* ---- Galaxy (One UI) ---- */
+[data-theme="galaxy"] {
+  --bg: #f4f4f6; --surface: #ffffff; --surface2: #f0f0f3; --line: #ebebee; --line2: #d9d9de;
+  --text: #111111; --muted: #6b6b70; --dim: #9a9aa0;
+  --turq: #0381fe; --emer: #0381fe; --orange: #f2711c;
+  --on-turq: #ffffff; --on-orange: #ffffff;
+  --done-bg: transparent; --sticker: #e3efff; --on-sticker: #0062d1;
+  --scribble: transparent; --hand: #6b6b70;
+  --tabs-bg: #e7e7eb; --tab-on: #ffffff; --tab-on-text: #111111;
+  --tonal: #e3efff; --on-tonal: #0062d1;
+}
+@media (prefers-color-scheme: dark) {
+  [data-theme="galaxy"] {
+    --bg: #000000; --surface: #17171a; --surface2: #26262a; --line: #26262a; --line2: #3a3a3f;
+    --text: #fafafa; --muted: #a3a3a8; --dim: #707075;
+    --turq: #3e91ff; --emer: #3e91ff; --orange: #ff8a3d;
+    --on-turq: #ffffff; --on-orange: #1a0c00;
+    --sticker: #12305a; --on-sticker: #9cc6ff; --hand: #a3a3a8;
+    --tabs-bg: #1f1f23; --tab-on: #3a3a40; --tab-on-text: #ffffff;
+    --tonal: #12305a; --on-tonal: #9cc6ff;
+  }
+}
+[data-theme="galaxy"] body, [data-theme="galaxy"] html, [data-theme="galaxy"] input, [data-theme="galaxy"] textarea, [data-theme="galaxy"] button { font-family: system-ui, 'Roboto', 'Onest', sans-serif; }
+[data-theme="galaxy"] .hand { font-family: inherit; font-weight: 500; font-size: 13px !important; }
+[data-theme="galaxy"] header { border-bottom: 0; }
+[data-theme="galaxy"] .hrow { padding: 22px 4px 12px; }
+[data-theme="galaxy"] .title h1 { font: 400 30px/1.1 system-ui, 'Roboto', sans-serif; text-transform: none; letter-spacing: 0; }
+[data-theme="galaxy"] .title h1 svg { display: none; }
+[data-theme="galaxy"] .title .sub { font-size: 14px !important; }
+[data-theme="galaxy"] .icon-btn { border: 0; background: var(--surface); height: 38px; min-width: 38px; border-radius: 19px; }
+[data-theme="galaxy"] .icon-btn.on { background: var(--turq); color: var(--on-turq); }
+[data-theme="galaxy"] .tabs { background: var(--tabs-bg); border-radius: 22px; padding: 4px; }
+[data-theme="galaxy"] .tab { height: 36px; border-radius: 18px; font-weight: 500; font-size: 14px; color: var(--muted); }
+[data-theme="galaxy"] .tab.on { background: var(--tab-on); color: var(--tab-on-text); font-weight: 600; box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+[data-theme="galaxy"] .prog { height: 4px; border-radius: 2px; background: var(--line); }
+[data-theme="galaxy"] .block, [data-theme="galaxy"] .q-card { border: 0; border-radius: 26px; }
+[data-theme="galaxy"] .bhead { padding: 14px 18px; }
+[data-theme="galaxy"] .bhead .lbl { font-size: 16px !important; font-weight: 600; color: var(--text); }
+[data-theme="galaxy"] .witem { padding: 10px 18px; font-size: 14px; }
+[data-theme="galaxy"] .witem.ck .txt { text-decoration-color: var(--dim); }
+[data-theme="galaxy"] .box { border-radius: 50%; width: 22px; height: 22px; }
+[data-theme="galaxy"] .wnote { padding: 10px 18px 14px; }
+[data-theme="galaxy"] .thead { text-transform: none; letter-spacing: 0; font-size: 12px; padding-left: 18px; padding-right: 14px; }
+[data-theme="galaxy"] .row { padding-left: 18px; padding-right: 14px; min-height: 54px; }
+[data-theme="galaxy"] .ex { border-bottom-color: var(--line); }
+[data-theme="galaxy"] .nm { font-weight: 500; font-size: 15px; }
+[data-theme="galaxy"] .ex.done .nm { color: var(--dim); }
+[data-theme="galaxy"] .cell { font-weight: 600; font-size: 14.5px; }
+[data-theme="galaxy"] .ck { border-width: 2px; width: 26px; height: 26px; }
+[data-theme="galaxy"] .sticker { font: 600 11px/1 system-ui, sans-serif; padding: 3px 7px; border-radius: 10px; transform: none; vertical-align: 2px; box-shadow: none; }
+[data-theme="galaxy"] .more { padding-left: 42px; padding-right: 18px; }
+[data-theme="galaxy"] .more .note { border: 0; background: var(--surface2); border-radius: 14px; }
+[data-theme="galaxy"] .btn { border-radius: 26px; font-weight: 600; height: 50px; }
+[data-theme="galaxy"] .btn.org { background: var(--tonal); color: var(--on-tonal); }
+[data-theme="galaxy"] .btn.ghost, [data-theme="galaxy"] .btn.sec { border: 0; background: var(--surface); color: var(--turq); }
+[data-theme="galaxy"] .opt { border: 0; background: var(--surface2); font-weight: 500; }
+[data-theme="galaxy"] .opt.warn.on { background: var(--orange); color: var(--on-orange); }
+[data-theme="galaxy"] .q-card { padding: 16px 18px; }
+[data-theme="galaxy"] .q-card .qt .n { font-size: 14px !important; color: var(--turq); font-weight: 600; }
+[data-theme="galaxy"] input, [data-theme="galaxy"] textarea { border: 0; background: var(--surface2); border-radius: 14px; }
+[data-theme="galaxy"] .out textarea { background: var(--surface); }
+[data-theme="galaxy"] .sheet { border: 0; border-radius: 26px 26px 0 0; }
+[data-theme="galaxy"] .sheet .q { font-size: 14px !important; color: var(--turq); }
+[data-theme="galaxy"] .rirgrid button { border: 0; border-radius: 20px; }
+[data-theme="galaxy"] .rirgrid button.on { background: var(--turq); color: var(--on-turq); }
+[data-theme="galaxy"] .stp .c, [data-theme="galaxy"] .mv, [data-theme="galaxy"] .del { border: 0; border-radius: 14px; background: var(--surface2); }
+[data-theme="galaxy"] .toast { border-radius: 20px; background: #3a3a3f; color: #fff; }
+[data-theme="galaxy"] .page header { border-bottom: 0; }
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 html, body { background: var(--bg); color: var(--text); font: 400 14px/1.35 'Onest', system-ui, sans-serif; }
-body { min-height: 100vh; padding-bottom: calc(96px + env(safe-area-inset-bottom)); }
+body { min-height: 100vh; padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }
 button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
 input, textarea { font: inherit; color: var(--text); background: var(--surface2); border: 1px solid var(--line2); border-radius: 10px; padding: 9px 11px; width: 100%; outline: none; }
 input:focus, textarea:focus { border-color: var(--turq); }
@@ -193,7 +261,7 @@ header { position: sticky; top: 0; z-index: 20; background: var(--bg); padding-t
 .wurow .stp .c { grid-template-columns: 28px 1fr 28px; }
 .del { height: 36px; border-radius: 9px; border: 1px solid var(--line2); color: var(--muted); }
 
-.toast { position: fixed; left: 50%; bottom: calc(86px + env(safe-area-inset-bottom)); transform: translateX(-50%); z-index: 60; background: var(--text); color: var(--bg); padding: 9px 14px; border-radius: 12px; font-weight: 600; font-size: 13px; white-space: nowrap; }
+.toast { transition: opacity .2s; pointer-events: none; position: fixed; left: 50%; bottom: calc(86px + env(safe-area-inset-bottom)); transform: translateX(-50%); z-index: 60; background: var(--text); color: var(--bg); padding: 9px 14px; border-radius: 12px; font-weight: 600; font-size: 13px; white-space: nowrap; }
 .hidden { display: none !important; }
 </style>
 </head>
@@ -267,7 +335,7 @@ function load() {
     } catch (e) {}
   }
   const wd = new Date().getDay();
-  if (s.rForm && (s.rForm.tm === 'да' || s.rForm.tm === 'нет')) s.rForm.tm = s.rForm.tm === 'да' ? 'беговая дорожка' : 'улица';
+  if (s.rForm) { const m = { 'да': 'электрическая', 'беговая дорожка': 'электрическая', 'изогнутая дорожка': 'изогнутая', 'механическая дорожка': 'изогнутая', 'нет': '', 'улица': '' }; if (s.rForm.tm in m) s.rForm.tm = m[s.rForm.tm]; if (Array.isArray(s.rForm.cond)) s.rForm.cond = s.rForm.cond.flatMap(c => c === 'дождь/снег' ? ['дождь'] : [c]); }
   return Object.assign({ theme: 'ddx', day: wd === 1 || wd === 2 ? 0 : wd === 3 || wd === 4 ? 1 : 2, edits: {}, order: {}, links: {}, done: {}, rir: {}, warm: {}, warmOpen: null, sForm: {}, rForm: blankR(), last: null }, s);
 }
 let S = load();
@@ -320,18 +388,17 @@ const $app = document.getElementById('app');
 function autosize(el) { el.style.height = 'auto'; el.style.height = (el.scrollHeight + 2) + 'px'; }
 function render() {
   document.documentElement.dataset.theme = S.theme;
-  const m = document.querySelector('meta[name=theme-color]'); if (m) m.content = S.theme === 'ddx' ? '#0c1413' : '#17181b';
+  const m = document.querySelector('meta[name=theme-color]'); if (m) m.content = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim() || '#000';
   let h = '';
   if (UI.page === 'strength') h = pageStrength();
   else if (UI.page === 'run') h = pageRun();
   else h = UI.edit ? pageEditor() : pageMain();
   if (UI.sheet) h += sheetRir();
-  if (UI.toast) h += `<div class="toast">${esc(UI.toast)}</div>`;
-  const y = window.scrollY;
+  const y = window.scrollY, pg = $app.querySelector('.page'), py = pg ? pg.scrollTop : 0, samePage = UI._lastPage === UI.page;
   $app.innerHTML = h;
   $app.querySelectorAll('textarea').forEach(autosize);
-  if (!UI.keepScrollReset) window.scrollTo(0, y);
-  UI.keepScrollReset = false;
+  if (!UI.keepScrollReset) { window.scrollTo(0, y); const np = $app.querySelector('.page'); if (np && samePage) np.scrollTop = py; }
+  UI.keepScrollReset = false; UI._lastPage = UI.page;
 }
 function header(extraRight) {
   const d = PROG[S.day];
@@ -500,55 +567,61 @@ function genStrength() {
 
 /* --- run report --- */
 function pageRun() {
-  const f = S.rForm;
+  const f = S.rForm, tm = f.tm === 'электрическая' || f.tm === 'изогнутая';
+  let n = 0; const num = () => `<span class="n hand">${++n}</span>`;
   let h = `<div class="page">${pageHead('Бег', 'отчёт · ' + today())}<div class="body wrap">`;
-  h += `<div class="q-card"><div class="qt"><span class="n hand">1</span><b>Где бежал</b></div>
-    ${opts(f, 'tm', ['улица', 'беговая дорожка', 'изогнутая дорожка'])}
-    ${f.tm === 'беговая дорожка' ? `<div class="grid3" style="margin-top:10px"><div><label>Старт, км/ч</label><input inputmode="decimal" value="${esc(f.tmStart)}" data-in="f" data-f="tmStart"></div><div><label>Финиш, км/ч</label><input inputmode="decimal" value="${esc(f.tmEnd)}" data-in="f" data-f="tmEnd"></div><div><label>Уклон, %</label><input inputmode="decimal" value="${esc(f.tmIncl)}" data-in="f" data-f="tmIncl"></div></div>` : ''}
-    ${cmt(f, 'tmC', 'для интервалов — скорость на каждом отрезке')}</div>`;
-  h += `<div class="q-card"><div class="qt"><span class="n hand">2</span><b>Выполнение</b></div>
+  h += `<div class="q-card"><div class="qt">${num()}<b>Дорожка</b></div><div class="hint">только если бежал на беговом тренажёре; на улице — ничего не выбирать</div>
+    ${opts(f, 'tm', ['электрическая', 'изогнутая'])}
+    ${f.tm === 'электрическая' ? `<div class="grid3" style="margin-top:10px"><div><label>Старт, км/ч</label><input inputmode="decimal" value="${esc(f.tmStart)}" data-in="f" data-f="tmStart"></div><div><label>Финиш, км/ч</label><input inputmode="decimal" value="${esc(f.tmEnd)}" data-in="f" data-f="tmEnd"></div><div><label>Уклон, %</label><input inputmode="decimal" value="${esc(f.tmIncl)}" data-in="f" data-f="tmIncl"></div></div>` : ''}
+    ${f.tm === 'электрическая' ? cmt(f, 'tmC', 'для интервалов — скорость на каждом отрезке') : ''}</div>`;
+  h += `<div class="q-card"><div class="qt">${num()}<b>Выполнение</b></div>
     ${opts(f, 'exec', ['по плану', 'изменено'], { warn: ['изменено'] })}
     ${cmt(f, 'execC', 'что изменено и почему; для качественных — почему не попал в цель на отрезке', f.exec === 'изменено')}</div>`;
-  h += `<div class="q-card"><div class="qt"><span class="n hand">3</span><b>Пульс и ощущения</b></div>
+  h += `<div class="q-card"><div class="qt">${num()}<b>Пульс и ощущения</b></div>
     ${opts(f, 'hr', ['совпадают', 'тяжелее, чем пульс', 'легче, чем пульс'], { warn: ['тяжелее, чем пульс'] })}
     ${cmt(f, 'hrC', 'подробности')}</div>`;
-  h += `<div class="q-card"><div class="qt"><span class="n hand">4</span><b>Условия</b></div>
-    ${opts(f, 'cond', ['обычные', 'жара', 'холод', 'ветер', 'дождь/снег', 'гололёд', 'рельеф'], { multi: true })}
+  if (!tm) h += `<div class="q-card"><div class="qt">${num()}<b>Условия</b></div>
+    ${opts(f, 'cond', ['обычные', 'жара', 'холод', 'ветер', 'дождь', 'снег', 'гололёд', 'рельеф'], { multi: true })}
     ${cmt(f, 'condC', 'подробности')}</div>`;
-  h += `<div class="q-card"><div class="qt"><span class="n hand">5</span><b>Боль / дискомфорт</b></div>
+  h += `<div class="q-card"><div class="qt">${num()}<b>Боль / дискомфорт</b></div>
     ${opts(f, 'pain', ['нет', 'есть'], { warn: ['есть'] })}
     ${f.pain === 'есть' ? `<div class="sub-l">Где</div><input value="${esc(f.painWhere)}" placeholder="колено, ахилл, голень…" data-in="f" data-f="painWhere">
       <div class="sub-l">Когда</div>${opts(f, 'painWhen', ['во время', 'после', 'во время и после'])}
       <div class="sub-l">Сила, 0–10 (1–2 чувствуется · 3–4 мешает · 5+ меняет технику)</div>${scoreOpts(f, 'painScore')}` : ''}
     ${cmt(f, 'painC', 'подробности')}</div>`;
-  h += `<div class="q-card"><div class="qt"><span class="n hand">6</span><b>Комментарий</b></div>
-    <textarea rows="3" placeholder="всё, чего нет в данных Garmin" data-in="f" data-f="comment">${esc(f.comment)}</textarea></div>`;
+  h += `<div class="q-card"><div class="qt">${num()}<b>Комментарий</b></div>
+    <textarea rows="3" placeholder="всё, чего нет в данных Garmin${tm ? '; в зале было жарко или душно — тоже сюда' : ''}" data-in="f" data-f="comment">${esc(f.comment)}</textarea></div>`;
   h += `<div class="actions"><button class="btn org full" data-a="genR">${f.out ? 'Пересобрать отчёт' : 'Сформировать отчёт'}</button></div>`;
   h += outBlock(f);
   h += `<div class="actions"><button class="btn ghost full" data-a="clearR">Очистить ответы</button></div></div></div>`;
   return h;
 }
 function genRun() {
-  const f = S.rForm;
-  let tm = f.tm === 'беговая дорожка' ? [f.tmStart || f.tmEnd ? `${f.tmStart || '_'} → ${f.tmEnd || '_'} км/ч` : '', f.tmIncl !== '' ? `уклон ${f.tmIncl}%` : ''].filter(Boolean).join(', ') || 'беговая' : f.tm === 'изогнутая дорожка' ? 'изогнутая (механическая)' : f.tm === 'улица' ? '— (улица)' : '_';
+  const f = S.rForm, tm = f.tm === 'электрическая' || f.tm === 'изогнутая';
   let pain = 'нет';
   if (f.pain === 'есть') pain = [f.painWhere.trim(), f.painWhen, f.painScore ? `${f.painScore}/10` : ''].filter(Boolean).join(', ') || 'есть';
   else if (!f.pain) pain = '_';
-  const cond = (f.cond || []).length ? f.cond.join(', ') : '_';
-  const lines = [
-    withC(`Дорожка: ${tm}`, f.tmC),
-    f.exec === 'изменено' ? `Выполнение: изменено${(f.execC || '').trim() ? ' — ' + f.execC.trim() : ''}` : withC(`Выполнение: ${f.exec || '_'}`, f.execC),
-    withC(`Пульс и ощущения: ${f.hr || '_'}`, f.hrC),
-    withC(`Условия: ${cond}`, f.condC),
-    withC(`Боль/дискомфорт: ${pain}`, f.painC),
-    `Комментарий: ${(f.comment || '').trim()}`,
-  ];
+  const lines = [];
+  if (f.tm === 'электрическая') {
+    const sp = [f.tmStart || f.tmEnd ? `${f.tmStart || '_'} → ${f.tmEnd || '_'} км/ч` : '', String(f.tmIncl || '').trim() !== '' ? `уклон ${f.tmIncl}%` : ''].filter(Boolean).join(', ');
+    lines.push(withC(`Дорожка электрическая${sp ? ': ' + sp : ''}`, f.tmC));
+  } else if (f.tm === 'изогнутая') lines.push('Дорожка изогнутая');
+  lines.push(f.exec === 'изменено' ? `Выполнение: изменено${(f.execC || '').trim() ? ' — ' + f.execC.trim() : ''}` : withC(`Выполнение: ${f.exec || '_'}`, f.execC));
+  lines.push(withC(`Пульс и ощущения: ${f.hr || '_'}`, f.hrC));
+  if (!tm) lines.push(withC(`Условия: ${(f.cond || []).length ? f.cond.join(', ') : '_'}`, f.condC));
+  lines.push(withC(`Боль/дискомфорт: ${pain}`, f.painC));
+  lines.push(`Комментарий: ${(f.comment || '').trim()}`);
   f.out = lines.join('\n');
   S.last = { kind: 'run', date: new Date().toISOString(), text: f.out };
 }
 
 /* ---------- actions ---------- */
-function toast(t) { UI.toast = t; render(); clearTimeout(UI._t); UI._t = setTimeout(() => { UI.toast = null; render(); }, 1800); }
+function toast(t) {
+  let el = document.getElementById('toast');
+  if (!el) { el = document.createElement('div'); el.id = 'toast'; el.className = 'toast'; document.body.appendChild(el); }
+  el.textContent = t; el.classList.remove('hidden'); el.style.opacity = '1';
+  clearTimeout(UI._t); UI._t = setTimeout(() => { el.style.opacity = '0'; setTimeout(() => el.classList.add('hidden'), 200); }, 1800);
+}
 function setEdit(id, patch) {
   const base = PROG.flatMap(d => d.ex).find(e => e.id === id);
   const e = { ...(S.edits[id] || {}), ...patch };
@@ -581,7 +654,7 @@ document.addEventListener('click', ev => {
   const a = t.dataset.a, id = t.dataset.id;
   switch (a) {
     case 'day': S.day = +t.dataset.i; S.warmOpen = null; UI.open = {}; save(); break;
-    case 'theme': S.theme = S.theme === 'ddx' ? 'graphite' : 'ddx'; save(); break;
+    case 'theme': { const T = ['ddx', 'graphite', 'galaxy'], N = { ddx: 'Тема DDX', graphite: 'Тема «Графит»', galaxy: 'Тема Galaxy' }; S.theme = T[(T.indexOf(S.theme) + 1) % T.length]; save(); render(); toast(N[S.theme]); return; }
     case 'edit': UI.edit = !UI.edit; UI.keepScrollReset = true; window.scrollTo(0, 0); break;
     case 'warmToggle': { const wm = S.warm[S.day] || {}; const all = WARM.every((_, i) => wm[i]); S.warmOpen = !(S.warmOpen ?? !all); save(); break; }
     case 'warm': { const m = { ...(S.warm[S.day] || {}) }; m[t.dataset.i] = !m[t.dataset.i]; S.warm[S.day] = m; if (WARM.every((_, i) => m[i])) S.warmOpen = false; save(); break; }
@@ -612,7 +685,7 @@ document.addEventListener('click', ev => {
     case 'genR': genRun(); save(); render(); document.getElementById('out')?.scrollIntoView({ behavior: 'smooth' }); return;
     case 'copy': { const f = curForm(); copyText(f.out).then(ok => toast(ok ? 'Скопировано' : 'Не удалось скопировать')); return; }
     case 'finishS': if (!confirm('Сбросить отметки, RIR и ответы этого дня? Последний отчёт сохранится в копии.')) return;
-      S.done[S.day] = {}; S.rir[S.day] = {}; S.sForm[S.day] = blankS(); S.warm[S.day] = {}; S.warmOpen = null; UI.cOpen = {}; UI.page = null; save(); toast('Тренировка завершена'); return;
+      S.done[S.day] = {}; S.rir[S.day] = {}; S.sForm[S.day] = blankS(); S.warm[S.day] = {}; S.warmOpen = null; UI.cOpen = {}; UI.page = null; save(); render(); toast('Тренировка завершена'); return;
     case 'clearR': if (!confirm('Очистить ответы беговой тренировки?')) return; S.rForm = blankR(); UI.cOpen = {}; save(); break;
     case 'stp': {
       const e = dayEx(S.day).find(x => x.id === id), f = t.dataset.f, d = +t.dataset.d;
@@ -667,6 +740,7 @@ document.addEventListener('change', ev => {
   if (k === 'name' || k === 'rest' || k === 'tech' || k.startsWith('wrest')) render();
 });
 window.addEventListener('pagehide', save);
+try { matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { if (S.theme === 'galaxy') render(); }); } catch (e) {}
 render();
 </script>
 </body>
