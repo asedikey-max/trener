@@ -1,5 +1,8 @@
 {
   "appId": "ru.my.trener",
   "appName": "Силовой трекер",
-  "webDir": "www"
+  "webDir": "www",
+  "android": {
+    "adjustMarginsForEdgeToEdge": "auto"
+  }
 }
