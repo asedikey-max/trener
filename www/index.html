@@ -82,7 +82,7 @@
 [data-theme="galaxy"] .bhead .lbl, [data-theme="galaxy"] .sheet .q, [data-theme="galaxy"] .sub-l.hand { display: inline-block; }
 [data-theme="galaxy"] .bhead .lbl::first-letter, [data-theme="galaxy"] .sheet .q::first-letter, [data-theme="galaxy"] .sub-l.hand::first-letter { text-transform: uppercase; }
 [data-theme="galaxy"] .witem { padding: 10px 18px; font-size: 14px; }
-[data-theme="galaxy"] .witem.ck .txt { text-decoration-color: var(--dim); }
+[data-theme="galaxy"] .witem.wdone .txt { text-decoration-color: var(--dim); }
 [data-theme="galaxy"] .box { border-radius: 50%; width: 22px; height: 22px; }
 [data-theme="galaxy"] .wnote { padding: 10px 18px 14px; }
 [data-theme="galaxy"] .thead { text-transform: none; letter-spacing: 0; font-size: 12px; padding-left: 18px; padding-right: 14px; }
@@ -149,7 +149,7 @@ header { position: sticky; top: 0; z-index: 20; background: var(--bg); padding-t
 .witem { display: grid; grid-template-columns: 22px 1fr auto; gap: 8px; align-items: center; width: 100%; padding: 7px 12px; text-align: left; border-bottom: 1px solid var(--line); font-size: 13px; }
 .witem:last-child { border-bottom: 0; }
 .witem .vol { color: var(--muted); font-size: 11.5px; text-align: right; max-width: 130px; }
-.witem.ck .txt { color: var(--dim); text-decoration: line-through; text-decoration-color: var(--scribble); }
+.witem.wdone .txt { color: var(--dim); text-decoration: line-through; text-decoration-color: var(--scribble); }
 .box { width: 18px; height: 18px; border-radius: 5px; border: 1.5px solid var(--line2); display: flex; align-items: center; justify-content: center; }
 .box.on { background: var(--emer); border-color: var(--emer); color: var(--on-turq); }
 .box svg { width: 12px; height: 12px; }
@@ -233,6 +233,8 @@ header { position: sticky; top: 0; z-index: 20; background: var(--bg); padding-t
 .rir-row .nm2 small { display: block; font-weight: 400; color: var(--dim); font-size: 11px; }
 .rir-row .opts { gap: 4px; flex-wrap: nowrap; }
 .rir-row .opt.sm { min-width: 31px; padding: 4px 6px; }
+.rir-row .addc.sm { display: block; margin-top: 2px; font-size: 11.5px; }
+.rir-row .rir-note { grid-column: 1 / -1; padding: 7px 10px; font-size: 13px; }
 .addc { margin-top: 8px; font-size: 12px; color: var(--turq); font-weight: 600; }
 .cm { margin-top: 8px; }
 .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
@@ -274,11 +276,11 @@ header { position: sticky; top: 0; z-index: 20; background: var(--bg); padding-t
 const KEY = 'strength-tracker-v3';
 const OLD_KEY = 'strength-tracker-v1';
 const W = (s, r, w, rest) => ({ s, r, w, rest });
-const MAHI_NOTE = 'Зачёт по первым трём подходам. Если в 4-м подходе меньше 12 повторов — в следующий раз 4-й подход с гантелями на шаг легче.';
+const MAHI_NOTE = 'Зачёт по первым трём подходам. Если в 4-м подходе меньше 12 повторов, в следующий раз 4-й подход с гантелями на шаг легче.';
 const PROG = [
   { label: 'День 1', wd: 'Пн', ex: [
     { id: 'd1e1', name: 'Жим ногами', short: 'жим ногами', garmin: 'Жим ногами', warm: [W(1, 5, 180, '1:30')], sets: 3, reps: 5, unit: 'r', w: 260, kind: 'leg', rest: '2:30', tech: 'Стопы на ширине плеч в середине платформы; колени по линии носков, не внутрь; вниз до ~90° в коленях, таз и поясница прижаты; наверху колени не защёлкивать, толкать всей стопой' },
-    { id: 'd1e2', name: 'Румынская тяга на блоке', short: 'румынская тяга', garmin: 'Становая тяга на прямых ногах', warm: [W(1, 5, 15, '0:45')], sets: 3, reps: 8, unit: 'r', w: 27.5, kind: 'machine', rest: '1:30', tech: 'Стоять вплотную к блоку, чтобы трос шёл почти вертикально; колени чуть согнуты и не меняют угол; таз назад, спина ровная; вниз до натяжения задней поверхности бедра; вверх — таз вперёд, сжать ягодицы, без прогиба назад' },
+    { id: 'd1e2', name: 'Румынская тяга на блоке', short: 'румынская тяга', garmin: 'Становая тяга на прямых ногах', warm: [W(1, 5, 15, '0:45')], sets: 3, reps: 8, unit: 'r', w: 27.5, kind: 'machine', rest: '1:30', tech: 'Стоять вплотную к блоку, чтобы трос шёл почти вертикально; колени чуть согнуты и не меняют угол; таз назад, спина ровная; вниз до натяжения задней поверхности бедра; вверх: таз вперёд, сжать ягодицы, без прогиба назад' },
     { id: 'd1e3', name: 'Жим штанги лёжа', short: 'жим лёжа', garmin: 'Жим штанги лежа', warm: [W(1, 5, 50, '1:30')], sets: 3, reps: 8, unit: 'r', w: 70, kind: 'bar', rest: '1:45', tech: 'Лопатки сведены и опущены, стопы в пол; хват чуть шире плеч, запястья над локтями; гриф к низу груди, локти 45–70° к корпусу; без отбива от груди; страховка на тяжёлых подходах' },
     { id: 'd1e4', name: 'Тяга верхнего блока', short: 'тяга верхнего блока', garmin: 'Тяга верхнего блока к груди', sets: 3, reps: 10, unit: 'r', w: 55, kind: 'machine', rest: '1:30', tech: 'Хват чуть шире плеч; начать с опускания лопаток, тянуть локтями вниз к верху груди; отклон 10–15°, без раскачки; наверху полностью выпрямить руки' },
     { id: 'd1e5', name: 'Махи гантелей в стороны', short: 'махи', garmin: 'Разведение рук с гантелями в стороны', sets: 4, reps: 15, unit: 'r', w: 20, kind: 'db', rest: '1:30', note: MAHI_NOTE, tech: 'Корпус наклонён вперёд на 10–15°, локти согнуты на 15–20° и зафиксированы; руки ~30° впереди линии плеч; до уровня плеч, ведут локти (выше кистей); плечи не поднимать; без раскачки, опускание медленно' },
@@ -286,23 +288,23 @@ const PROG = [
     { id: 'd1e7', name: 'Рычажный тренажёр на бицепс', short: 'бицепс рычажный', garmin: 'Сгибание на бицепс на тросовом тренажере', sets: 3, reps: 12, unit: 'r', w: 22.5, kind: 'machine', rest: '1:00', tech: 'Локти на оси тренажёра, прижаты к подушке; внизу почти полное разгибание, вес не бросать; плечи и локти не поднимаются' },
   ]},
   { label: 'День 2', wd: 'Ср', ex: [
-    { id: 'd2e1', name: 'Тяга Т-грифа с упором грудью', short: 'Т-гриф', garmin: 'Тяга штанги в наклоне', warm: [W(1, 10, 25, '1:00')], sets: 3, reps: 8, unit: 'r', w: 47.5, kind: 'bar', rest: '1:45', tech: 'Высота подушки — верх груди на подушке, руки свободно висят и достают до рукоятей; грудь прижата к подушке весь подход, не отрывать её при подъёме; стопы упираются в платформу, колени мягкие, поясница нейтральная, без прогиба; тянуть к низу груди, локти назад вдоль корпуса; внизу руки полностью выпрямлены' },
-    { id: 'd2e2', name: 'Жим от груди сидя в тренажёре', short: 'жим в блочном', garmin: 'Жим от груди на подвесном тренажере', sets: 3, reps: 10, unit: 'r', w: 72.5, kind: 'machine', rest: '1:30', tech: 'Высота сиденья — рукояти на уровне середины груди; спина и лопатки прижаты к спинке, лопатки сведены, плечи не выходят вперёд; жать перед собой, локти не защёлкивать; назад медленно до лёгкого растяжения груди, стек не стучит' },
+    { id: 'd2e1', name: 'Тяга Т-грифа с упором грудью', short: 'Т-гриф', garmin: 'Тяга штанги в наклоне', warm: [W(1, 10, 25, '1:00')], sets: 3, reps: 8, unit: 'r', w: 47.5, kind: 'bar', rest: '1:45', tech: 'Высота подушки: верх груди на подушке, руки свободно висят и достают до рукоятей; грудь прижата к подушке весь подход, не отрывать её при подъёме; стопы упираются в платформу, колени мягкие, поясница нейтральная, без прогиба; тянуть к низу груди, локти назад вдоль корпуса; внизу руки полностью выпрямлены' },
+    { id: 'd2e2', name: 'Жим от груди сидя в тренажёре', short: 'жим в блочном', garmin: 'Жим от груди на подвесном тренажере', sets: 3, reps: 10, unit: 'r', w: 72.5, kind: 'machine', rest: '1:30', tech: 'Высота сиденья: рукояти на уровне середины груди; спина и лопатки прижаты к спинке, лопатки сведены, плечи не выходят вперёд; жать перед собой, локти не защёлкивать; назад медленно до лёгкого растяжения груди, стек не стучит' },
     { id: 'd2e3', name: 'Жим гантелей сидя', short: 'жим гантелей сидя', garmin: 'Жим гантелей сидя', sets: 3, reps: 10, unit: 'r', w: 32, kind: 'db', rest: '1:30', tech: 'Спинка почти вертикальная, лопатки и таз прижаты; предплечья вертикальны, старт на уровне плеч; вверх и чуть внутрь, без стука гантелей; поясницу дугой не прогибать', note: '+шаг: следующая гантель после 16 кг (17 или 18 на каждую руку), 3 × 10. Гантелей по 15 в зале не было.' },
-    { id: 'd2e4', name: 'Горизонтальная тяга с упором в грудь', short: 'тяга с упором в грудь', garmin: 'Тяга на блоке к поясу сидя', sets: 3, reps: 12, unit: 'r', w: 50, kind: 'machine', rest: '1:30', tech: 'Сиденье и упор — грудь на подушке, руки выпрямлены и достают рукояти с лёгким натяжением; грудь прижата весь подход; локти высоко и в стороны (~60–80° от корпуса), как задумано тренажёром; тянуть к линии груди, в конце свести лопатки; плечи не поднимать к ушам; вперёд — полное выпрямление рук с растяжением между лопатками' },
+    { id: 'd2e4', name: 'Горизонтальная тяга с упором в грудь', short: 'тяга с упором в грудь', garmin: 'Тяга на блоке к поясу сидя', sets: 3, reps: 12, unit: 'r', w: 50, kind: 'machine', rest: '1:30', tech: 'Сиденье и упор: грудь на подушке, руки выпрямлены и достают рукояти с лёгким натяжением; грудь прижата весь подход; локти высоко и в стороны (~60–80° от корпуса), как задумано тренажёром; тянуть к линии груди, в конце свести лопатки; плечи не поднимать к ушам; вперёд: полное выпрямление рук с растяжением между лопатками' },
     { id: 'd2e5', name: 'Обратная бабочка', short: 'обратная бабочка', garmin: 'Разведение рук в стороны сидя', sets: 3, reps: 15, unit: 'r', w: 12.5, kind: 'machine', rest: '1:00', tech: 'Грудь к спинке, рукояти на уровне плеч; локти слегка согнуты, угол постоянный; руки назад по дуге, плечи не поднимаются' },
-    { id: 'd2e6', name: 'Сгибание рук на нижнем блоке', short: 'бицепс на блоке', garmin: 'Сгибание на бицепс на тросовом тренажере', sets: 3, reps: 12, unit: 'r', w: 17.5, kind: 'machine', rest: '1:00', tech: 'Стоять близко к блоку; локти у боков и неподвижны; внизу полное разгибание; без раскачки корпусом, наверху сжатие', note: 'На 20 кг ломалась техника — работаем с 17,5.' },
-    { id: 'd2e7', name: 'Отжимания в тренажёре сидя', short: 'отжимания в тренажёре', garmin: 'Жим Вниз На Трицепс', sets: 3, reps: 12, unit: 'r', w: 92.5, kind: 'machine', rest: '1:00', tech: 'Лопатки опущены и сведены, плечи не поднимаются к ушам; корпус вертикально или чуть вперёд; локти идут назад вдоль корпуса, не в стороны; вниз до ~90° в локтях, не глубже; вверху руки почти прямые, локти не защёлкивать; без рывка', note: 'Минимальный шаг блинов: 92,5, если нет — 95.' },
+    { id: 'd2e6', name: 'Сгибание рук на нижнем блоке', short: 'бицепс на блоке', garmin: 'Сгибание на бицепс на тросовом тренажере', sets: 3, reps: 12, unit: 'r', w: 17.5, kind: 'machine', rest: '1:00', tech: 'Стоять близко к блоку; локти у боков и неподвижны; внизу полное разгибание; без раскачки корпусом, наверху сжатие', note: 'На 20 кг ломалась техника, работаем с 17,5.' },
+    { id: 'd2e7', name: 'Отжимания в тренажёре сидя', short: 'отжимания в тренажёре', garmin: 'Жим Вниз На Трицепс', sets: 3, reps: 12, unit: 'r', w: 92.5, kind: 'machine', rest: '1:00', tech: 'Лопатки опущены и сведены, плечи не поднимаются к ушам; корпус вертикально или чуть вперёд; локти идут назад вдоль корпуса, не в стороны; вниз до ~90° в локтях, не глубже; вверху руки почти прямые, локти не защёлкивать; без рывка', note: 'Минимальный шаг блинов: 92,5, если нет, то 95.' },
   ]},
   { label: 'День 3', wd: 'Пт', ex: [
-    { id: 'd3e1', name: 'Шаги на платформу с гантелями', short: 'шаги на платформу', garmin: 'Подъем С Гантелями На Возвышение', warm: [W(1, 5, 12, '1:00')], sets: 3, reps: 8, unit: 'leg', w: 16, kind: 'db', rest: '1:45', tech: 'Высота — колено не больше 90°; стопа целиком на платформе, толчок пяткой рабочей ноги, задняя почти не помогает; колено по линии носка; спуск медленно; сначала все повторы одной ногой, потом другой', note: 'В Garmin повторы считаются на обе ноги: разминка 10, рабочие 16.' },
+    { id: 'd3e1', name: 'Шаги на платформу с гантелями', short: 'шаги на платформу', garmin: 'Подъем С Гантелями На Возвышение', warm: [W(1, 5, 12, '1:00')], sets: 3, reps: 8, unit: 'leg', w: 16, kind: 'db', rest: '1:45', tech: 'Высота: колено не больше 90°; стопа целиком на платформе, толчок пяткой рабочей ноги, задняя почти не помогает; колено по линии носка; спуск медленно; сначала все повторы одной ногой, потом другой', note: 'В Garmin повторы считаются на обе ноги: разминка 10, рабочие 16.' },
     { id: 'd3e2', name: 'Сгибания ног сидя', short: 'сгибания ног сидя', garmin: 'Сгибание ног с отягощением', sets: 3, reps: 12, unit: 'r', w: 65, kind: 'machine', rest: '1:30', tech: 'Колено на оси тренажёра, валик над пятками, бедро прижато; сгибать полностью, сжатие внизу; возврат медленно, таз не отрывается' },
-    { id: 'd3e3', name: 'Пек-дек', short: 'пек-дек', garmin: 'Сведение рук на подвесном тренажере', sets: 3, reps: 12, unit: 'r', w: 47.5, kind: 'machine', rest: '1:00', tech: 'Высота сиденья — локти на уровне плеч или чуть ниже, согнуты ~90°; предплечья и локти прижаты к подушкам, кисти расслаблены — давить локтями, не кистями; лопатки прижаты к спинке, грудь вперёд; свести подушки перед грудью, пауза 1 с; назад медленно до умеренного растяжения груди, плечи не выходят вперёд, без боли в плече' },
+    { id: 'd3e3', name: 'Пек-дек', short: 'пек-дек', garmin: 'Сведение рук на подвесном тренажере', sets: 3, reps: 12, unit: 'r', w: 47.5, kind: 'machine', rest: '1:00', tech: 'Высота сиденья: локти на уровне плеч или чуть ниже, согнуты ~90°; предплечья и локти прижаты к подушкам, кисти расслаблены, давить локтями, не кистями; лопатки прижаты к спинке, грудь вперёд; свести подушки перед грудью, пауза 1 с; назад медленно до умеренного растяжения груди, плечи не выходят вперёд, без боли в плече' },
     { id: 'd3e4', name: 'Тяга верхнего блока нейтральным хватом', short: 'тяга верхнего нейтральным', garmin: 'Тяга верхнего блока к груди узким хватом', sets: 3, reps: 10, unit: 'r', w: 57.5, kind: 'machine', rest: '1:30', tech: 'Хват нейтральный на ширине плеч (ладони друг к другу); начать с опускания лопаток; тянуть к верху груди, локти вниз вдоль корпуса; отклон 10–15°, без раскачки; наверху полностью выпрямить руки' },
     { id: 'd3e5', name: 'Махи гантелей в стороны', short: 'махи', garmin: 'Разведение рук с гантелями в стороны', sets: 4, reps: 15, unit: 'r', w: 20, kind: 'db', rest: '1:30', note: MAHI_NOTE, tech: 'Корпус наклонён вперёд на 10–15°, локти согнуты на 15–20° и зафиксированы; руки ~30° впереди линии плеч; до уровня плеч, ведут локти (выше кистей); плечи не поднимать; без раскачки, опускание медленно' },
     { id: 'd3e6', name: 'Отведение бедра', short: 'отведение бедра', garmin: 'Укрепление бедер', sets: 3, reps: 20, unit: 'r', w: 70, kind: 'machine', rest: '1:00', tech: 'Спина прижата, таз неподвижен; развести колени максимально, пауза 1 с; возврат медленно, вес не бросать; корпус не раскачивать' },
     { id: 'd3e7', name: 'Подъём на носки стоя', short: 'носки стоя', garmin: 'Подъем на носках с отягощением стоя', sets: 3, reps: 10, unit: 'r', w: null, kind: 'machine', rest: '1:30', tech: 'Ноги прямые, колени не защёлкнуты; на краю платформы только подушечки стоп, пятки свисают; внизу растяжение и пауза 1 с, вверху максимально высоко; без отскока и сгибания коленей', note: 'Вес подбирается заново (калибровка).' },
-    { id: 'd3e8', name: 'Боковая планка', short: 'боковая планка', garmin: 'Упражнение "Боковая планка"', sets: 2, reps: 50, unit: 'sec', w: 0, kind: 'bw', rest: '1:00', noRir: true, tech: 'Локоть под плечом; голова, таз и стопы на одной линии; таз не провисает и не разворачивается; дышать ровно', note: 'В Garmin — 4 × 0:50, чередуя стороны.' },
+    { id: 'd3e8', name: 'Боковая планка', short: 'боковая планка', garmin: 'Упражнение "Боковая планка"', sets: 2, reps: 50, unit: 'sec', w: 0, kind: 'bw', rest: '1:00', noRir: true, tech: 'Локоть под плечом; голова, таз и стопы на одной линии; таз не провисает и не разворачивается; дышать ровно', note: 'В Garmin: 4 × 0:50, чередуя стороны.' },
   ]},
 ];
 const ILL = {"d1e1": [{"t": "Pure Strength Linear Leg Press", "u": "https://ddxfitness.me/machines_manuals/exercise_detail/268"}], "d1e2": [{"t": "MuscleWiki: нижний блок", "u": "https://musclewiki.com/ru-ru/exercise/cable-bar-romanian-deadlift"}], "d1e3": [{"t": "Жим лёжа (база зала)", "u": "https://ddxfitness.me/machines_manuals/exercise_detail/496"}], "d1e4": [{"t": "Selection 700 Lat Machine", "u": "https://ddxfitness.me/machines_manuals/exercise_detail/272"}], "d1e5": [{"t": "StrengthLog", "u": "https://www.strengthlog.com/dumbbell-lateral-raise/"}], "d1e6": [{"t": "Foreman, подъём на носки сидя", "u": "https://ddxfitness.me/machines_manuals/exercise_detail/296"}], "d1e7": [{"t": "Pure Strength Biceps", "u": "https://ddxfitness.me/machines_manuals/exercise_detail/243"}], "d2e1": [{"t": "Technogym T-Bar Row", "u": "https://ddxfitness.me/machines_manuals/exercise_detail/289"}], "d2e2": [{"t": "Selection 900 Chest Press", "u": "https://ddxfitness.me/machines_manuals/exercise_detail/263"}], "d2e3": [{"t": "Жим гантелей от плеч (база зала)", "u": "https://ddxfitness.me/machines_manuals/exercise_detail/498"}], "d2e4": [{"t": "Selection 900 Upper Back", "u": "https://ddxfitness.me/machines_manuals/exercise_detail/273"}], "d2e5": [{"t": "Selection 700 Dual Pectoral / Reverse Fly", "u": "https://ddxfitness.me/machines_manuals/exercise_detail/253"}], "d2e6": [{"t": "Сгибание на нижнем блоке (база зала)", "u": "https://ddxfitness.me/machines_manuals/exercise_detail/286"}], "d2e7": [{"t": "Pure Strength Seated Dip", "u": "https://ddxfitness.me/machines_manuals/exercise_detail/267"}], "d3e1": [{"t": "StrengthLog", "u": "https://www.strengthlog.com/step-up/"}], "d3e2": [{"t": "Selection 700 Leg Curl", "u": "https://ddxfitness.me/machines_manuals/exercise_detail/250"}], "d3e3": [{"t": "Selection Pectoral", "u": "https://ddxfitness.me/machines_manuals/exercise_detail/251"}], "d3e4": [{"t": "StrengthLog", "u": "https://www.strengthlog.com/lat-pulldown-with-neutral-grip/"}], "d3e5": [{"t": "StrengthLog", "u": "https://www.strengthlog.com/dumbbell-lateral-raise/"}], "d3e6": [{"t": "Selection 900 Abductor", "u": "https://ddxfitness.me/machines_manuals/exercise_detail/368"}], "d3e7": [{"t": "стоя", "u": "https://www.strengthlog.com/standing-calf-raise/"}, {"t": "в жиме ногами", "u": "https://www.strengthlog.com/calf-raise-in-leg-press/"}], "d3e8": [{"t": "StrengthLog", "u": "https://www.strengthlog.com/side-plank/"}]};
@@ -311,7 +313,7 @@ const WARM = [
   ['Эллипс или велотренажёр, лёгкий темп', '5 мин'],
   ['Круговые вращения прямыми руками', 'по 10 вперёд и назад'],
   ['Повороты корпуса стоя, руки перед грудью', 'по 10 в каждую сторону'],
-  ['«Открытие ворот»: поднять согнутое колено вперёд и отвести в сторону; затем обратно — из стороны вперёд', 'по 8 в каждую сторону на каждую ногу'],
+  ['«Открытие ворот»: поднять согнутое колено вперёд и отвести в сторону; затем обратно: из стороны вперёд', 'по 8 в каждую сторону на каждую ногу'],
   ['Махи прямой ногой вперёд-назад и в сторону, держась за опору', 'по 10 на ногу в каждом направлении'],
   ['Приседания без веса, медленно', '10'],
   ['Выпады вперёд без веса', 'по 5 на каждую ногу'],
@@ -321,7 +323,7 @@ const STEP = { leg: 10, bar: 2.5, machine: 2.5, db: 2, bw: 0 };
 const RIRS = ['0', '1', '2', '3', '4+'];
 
 /* ---------- state ---------- */
-const blankS = () => ({ calf: '', rirC: '', dev: '', devC: '', tech: '', techC: '', pain: '', painWhere: '', painEx: [], painScore: '', painC: '', comment: '', out: '' });
+const blankS = () => ({ rirNotes: {}, dev: '', devC: '', tech: '', techC: '', pain: '', painWhere: '', painEx: [], painScore: '', painC: '', comment: '', out: '' });
 const blankR = () => ({ tm: '', tmStart: '', tmEnd: '', tmIncl: '', tmC: '', exec: '', execC: '', hr: '', hrC: '', cond: [], condC: '', pain: '', painWhere: '', painWhen: '', painScore: '', painC: '', comment: '', out: '' });
 function load() {
   let s = null;
@@ -364,8 +366,8 @@ const sForm = (di = S.day) => S.sForm[di] || (S.sForm[di] = blankS());
 const techList = e => String(e.tech || '').split(/\n+|;\s*/).map(t => t.trim()).filter(Boolean).map(t => t[0].toUpperCase() + t.slice(1));
 const repsTxt = e => `${e.sets}×${e.reps}`;
 const repsSub = e => e.unit === 'leg' ? 'на ногу' : e.unit === 'sec' ? 'сек на сторону' : '';
-const wMain = e => e.kind === 'bw' ? '—' : e.w == null ? '?' : fmt(e.w);
-const wSub = e => e.kind === 'bw' ? 'свой вес' : e.w == null ? 'подобрать' : e.id === 'd2e3' && !(S.edits[e.id] && S.edits[e.id].w != null) ? '2×16 ↑' : e.kind === 'db' ? `2×${fmt(e.w / 2)}` : 'кг';
+const wMain = e => e.kind === 'bw' ? 'свой' : e.w == null ? '?' : fmt(e.w);
+const wSub = e => e.kind === 'bw' ? 'вес' : e.w == null ? 'подобрать' : e.id === 'd2e3' && !(S.edits[e.id] && S.edits[e.id].w != null) ? '2×16 ↑' : e.kind === 'db' ? `2×${fmt(e.w / 2)}` : 'кг';
 
 const I = {
   check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>',
@@ -381,7 +383,7 @@ const I = {
 function libHtml(e) {
   const links = [...(S.links[e.id] ? [{ t: 'Моё видео', u: S.links[e.id] }] : []), ...(ILL[e.id] || [])];
   if (!links.length) return '';
-  return `<div class="libs"><div class="lib"><span>Иллюстрация</span><div class="ill">${links.map(v => `<a href="${esc(v.u)}" target="_blank" rel="noopener">${esc(v.t)} ↗</a>`).join('<i>·</i>')}</div>${PLATES.includes(e.id) ? '<small>Тренажёр на блинах: записывать вес блинов без веса рычага или салазок.</small>' : ''}<small>Где иллюстрация расходится с техникой выше — верна техника.</small></div></div>`;
+  return `<div class="libs"><div class="lib"><span>Иллюстрация</span><div class="ill">${links.map(v => `<a href="${esc(v.u)}" target="_blank" rel="noopener">${esc(v.t)} ↗</a>`).join('<i>·</i>')}</div>${PLATES.includes(e.id) ? '<small>Тренажёр на блинах: записывать вес блинов без веса рычага или салазок.</small>' : ''}<small>Где иллюстрация расходится с техникой выше, верна техника.</small></div></div>`;
 }
 const scribble = '<svg viewBox="0 0 100 9" preserveAspectRatio="none"><path d="M1 6 C 20 2, 35 8, 55 4 S 85 3, 99 5" fill="none" stroke="var(--scribble)" stroke-width="2.6" stroke-linecap="round"/></svg>';
 
@@ -422,7 +424,7 @@ function pageMain() {
   let h = header(`<button class="icon-btn" data-a="theme" title="Тема">${I.theme}</button><button class="icon-btn" data-a="edit">${I.edit}Правка</button>`);
   h += `<main class="wrap">`;
   h += `<section class="block"><button class="bhead" data-a="warmToggle"><span class="lbl hand">разминка</span><span class="meta">7–8 мин · ${wc} из ${WARM.length}${wAll ? ' ✓' : ''}</span><span class="chev ${wOpen ? 'open' : ''}">${I.chev}</span></button>`;
-  if (wOpen) h += `<div class="wlist">${WARM.map(([t, v], i) => `<button class="witem ${wm[i] ? 'ck' : ''}" data-a="warm" data-i="${i}"><span class="box ${wm[i] ? 'on' : ''}">${wm[i] ? I.check : ''}</span><span class="txt">${esc(t)}</span><span class="vol">${esc(v)}</span></button>`).join('')}</div><div class="wnote">${esc(WARM_NOTE)}</div>`;
+  if (wOpen) h += `<div class="wlist">${WARM.map(([t, v], i) => `<button class="witem ${wm[i] ? 'wdone' : ''}" data-a="warm" data-i="${i}"><span class="box ${wm[i] ? 'on' : ''}">${wm[i] ? I.check : ''}</span><span class="txt">${esc(t)}</span><span class="vol">${esc(v)}</span></button>`).join('')}</div><div class="wnote">${esc(WARM_NOTE)}</div>`;
   h += `</section>`;
   h += `<section class="block"><div class="thead"><span>#</span><span>Упражнение</span><span>Подх</span><span>Вес</span><span>Отдых</span><span></span></div>`;
   list.forEach((e, i) => {
@@ -440,7 +442,7 @@ function pageMain() {
       ${open ? `<div class="more"><div class="g">Garmin: ${esc(e.garmin)}</div><ul>${techList(e).map(t => `<li>${esc(t)}</li>`).join('')}</ul>${e.note ? `<div class="note">${esc(e.note)}</div>` : ''}${libHtml(e)}</div>` : ''}
     </div>`;
   });
-  h += `</section><p class="tip">Нажмите на строку — техника. Кружок справа — отметить выполненным.</p></main>`;
+  h += `</section><p class="tip">Нажмите на строку, чтобы открыть технику. Кружок справа отмечает выполнение.</p></main>`;
   h += `<div class="bbar"><div class="in"><button class="btn pri" data-a="goStrength">${I.doc}Отчёт: силовая</button><button class="btn org" data-a="goRun">${I.run}Бег</button></div></div>`;
   return h;
 }
@@ -509,7 +511,7 @@ function scoreOpts(form, field) {
 }
 function outBlock(form) {
   if (!form.out) return '';
-  return `<section class="out" id="out"><div class="sub-l hand" style="font-size:20px;color:var(--hand)">готовый отчёт — можно править</div>
+  return `<section class="out" id="out"><div class="sub-l hand" style="font-size:20px;color:var(--hand)">готовый отчёт, можно править</div>
     <textarea data-in="f" data-f="out">${esc(form.out)}</textarea>
     <div class="actions"><button class="btn pri full" data-a="copy">Копировать</button></div></section>`;
 }
@@ -523,13 +525,13 @@ function pageStrength() {
   const all = dayEx(S.day);
   let h = `<div class="page">${pageHead('Отчёт', PROG[S.day].label + ' · ' + today())}<div class="body wrap">`;
   h += `<div class="q-card"><div class="qt"><span class="n hand">1</span><b>Запас (RIR)</b></div><div class="hint">в последнем рабочем подходе</div>
-    ${list.map(e => `<div class="rir-row"><div class="nm2">${esc(e.short || e.name)}${dn[e.id] ? '' : '<small>не отмечено выполненным</small>'}</div><div class="opts">${RIRS.map(v => `<button class="opt sm ${rr[e.id] === v ? 'on' : ''}" data-a="rirSet" data-id="${e.id}" data-v="${v}">${v}</button>`).join('')}</div></div>`).join('')}
-    ${cmt(f, 'rirC', 'комментарий к запасу')}</div>`;
+    ${list.map(e => { const note = (f.rirNotes || {})[e.id] || '', open = note || UI.cOpen['rir_' + e.id];
+      return `<div class="rir-row"><div class="nm2">${esc(e.short || e.name)}${dn[e.id] ? '' : '<small>не отмечено выполненным</small>'}${open ? '' : `<button class="addc sm" data-a="addRirNote" data-id="${e.id}">+ комментарий</button>`}</div><div class="opts">${RIRS.map(v => `<button class="opt sm ${rr[e.id] === v ? 'on' : ''}" data-a="rirSet" data-id="${e.id}" data-v="${v}">${v}</button>`).join('')}</div>${open ? `<input class="rir-note" value="${esc(note)}" placeholder="комментарий к ${esc(e.short || e.name)}" data-in="rirNote" data-id="${e.id}">` : ''}</div>`; }).join('')}</div>`;
   const missed = all.filter(e => !dn[e.id]);
   h += `<div class="q-card"><div class="qt"><span class="n hand">2</span><b>Отклонения от плана</b></div>
     ${opts(f, 'dev', ['нет', 'есть'], { warn: ['есть'] })}
     ${f.dev === 'есть' && missed.length && !f.devC ? `<button class="addc" data-a="fillMissed">+ вписать невыполненные: ${esc(missed.map(e => e.short || e.name).join(', '))}</button>` : ''}
-    ${cmt(f, 'devC', 'что и почему; если в часах записан не тот вес или повторы — фактические', f.dev === 'есть')}</div>`;
+    ${cmt(f, 'devC', 'что и почему; если в часах записан не тот вес или повторы, то фактические', f.dev === 'есть')}</div>`;
   h += `<div class="q-card"><div class="qt"><span class="n hand">3</span><b>Техника</b></div>
     ${opts(f, 'tech', ['ок', 'были проблемы'], { warn: ['были проблемы'] })}
     ${cmt(f, 'techC', 'что шло не так', f.tech === 'были проблемы')}</div>`;
@@ -543,11 +545,11 @@ function pageStrength() {
     <textarea rows="3" placeholder="состояние, расхождение готовности с ощущениями, всё, чего нет в Garmin" data-in="f" data-f="comment">${esc(f.comment)}</textarea></div>`;
   h += `<div class="actions"><button class="btn pri full" data-a="genS">${f.out ? 'Пересобрать отчёт' : 'Сформировать отчёт'}</button></div>`;
   h += outBlock(f);
-  h += `<div class="actions"><button class="btn ghost full" data-a="finishS">Завершить тренировку — сбросить отметки и ответы</button></div>`;
+  h += `<div class="actions"><button class="btn ghost full" data-a="finishS">Завершить тренировку: сбросить отметки и ответы</button></div>`;
   h += `</div></div>`;
   return h;
 }
-function withC(base, c) { c = (c || '').trim(); return c ? `${base} — ${c}` : base; }
+function withC(base, c) { c = (c || '').trim(); return c ? `${base} | ${c}` : base; }
 function genStrength() {
   const f = sForm(), rr = rir(), all = dayEx(S.day);
   const r = all.filter(e => !e.noRir).map(e => `${e.short || e.name} ${rr[e.id] ?? '_'}`).join(' · ');
@@ -557,7 +559,7 @@ function genStrength() {
     pain = parts.join(', ') || 'есть';
   } else if (!f.pain) pain = '_';
   const lines = [
-    withC(`Запас (RIR): ${r}`, f.rirC),
+    ['Запас (RIR):', ...all.filter(e => !e.noRir).map(e => { const n = ((f.rirNotes || {})[e.id] || '').trim(); return `${e.short || e.name} ${rr[e.id] ?? '_'}${n ? ' | ' + n : ''}`; })].join('\n'),
     f.dev === 'есть' ? `Отклонения от плана: ${(f.devC || '').trim() || 'есть'}` : withC(`Отклонения от плана: ${f.dev || '_'}`, f.devC),
     f.tech === 'были проблемы' ? `Техника: ${(f.techC || '').trim() || 'были проблемы'}` : withC(`Техника: ${f.tech || '_'}`, f.techC),
     withC(`Боль/дискомфорт: ${pain}`, f.painC),
@@ -572,13 +574,13 @@ function pageRun() {
   const f = S.rForm, tm = f.tm === 'электрическая' || f.tm === 'изогнутая';
   let n = 0; const num = () => `<span class="n hand">${++n}</span>`;
   let h = `<div class="page">${pageHead('Бег', 'отчёт · ' + today())}<div class="body wrap">`;
-  h += `<div class="q-card"><div class="qt">${num()}<b>Дорожка</b></div><div class="hint">только если бежал на беговом тренажёре; на улице — ничего не выбирать</div>
+  h += `<div class="q-card"><div class="qt">${num()}<b>Дорожка</b></div><div class="hint">только если бежал на беговом тренажёре; на улице ничего не выбирать</div>
     ${opts(f, 'tm', ['электрическая', 'изогнутая'])}
     ${f.tm === 'электрическая' ? `<div class="grid3" style="margin-top:10px"><div><label>Старт, км/ч</label><input inputmode="decimal" value="${esc(f.tmStart)}" data-in="f" data-f="tmStart"></div><div><label>Финиш, км/ч</label><input inputmode="decimal" value="${esc(f.tmEnd)}" data-in="f" data-f="tmEnd"></div><div><label>Уклон, %</label><input inputmode="decimal" value="${esc(f.tmIncl)}" data-in="f" data-f="tmIncl"></div></div>` : ''}
-    ${f.tm === 'электрическая' ? cmt(f, 'tmC', 'для интервалов — скорость на каждом отрезке') : ''}</div>`;
+    ${f.tm === 'электрическая' ? cmt(f, 'tmC', 'для интервалов: скорость на каждом отрезке') : ''}</div>`;
   h += `<div class="q-card"><div class="qt">${num()}<b>Выполнение</b></div>
     ${opts(f, 'exec', ['по плану', 'изменено'], { warn: ['изменено'] })}
-    ${cmt(f, 'execC', 'что изменено и почему; для качественных — почему не попал в цель на отрезке', f.exec === 'изменено')}</div>`;
+    ${cmt(f, 'execC', 'что изменено и почему; для качественных: почему не попал в цель на отрезке', f.exec === 'изменено')}</div>`;
   h += `<div class="q-card"><div class="qt">${num()}<b>Пульс и ощущения</b></div>
     ${opts(f, 'hr', ['совпадают', 'тяжелее, чем пульс', 'легче, чем пульс'], { warn: ['тяжелее, чем пульс'] })}
     ${cmt(f, 'hrC', 'подробности')}</div>`;
@@ -592,7 +594,7 @@ function pageRun() {
       <div class="sub-l">Сила, 0–10 (1–2 чувствуется · 3–4 мешает · 5+ меняет технику)</div>${scoreOpts(f, 'painScore')}` : ''}
     ${cmt(f, 'painC', 'подробности')}</div>`;
   h += `<div class="q-card"><div class="qt">${num()}<b>Комментарий</b></div>
-    <textarea rows="3" placeholder="всё, чего нет в данных Garmin${tm ? '; в зале было жарко или душно — тоже сюда' : ''}" data-in="f" data-f="comment">${esc(f.comment)}</textarea></div>`;
+    <textarea rows="3" placeholder="всё, чего нет в данных Garmin${tm ? '; в зале было жарко или душно, тоже сюда' : ''}" data-in="f" data-f="comment">${esc(f.comment)}</textarea></div>`;
   h += `<div class="actions"><button class="btn org full" data-a="genR">${f.out ? 'Пересобрать отчёт' : 'Сформировать отчёт'}</button></div>`;
   h += outBlock(f);
   h += `<div class="actions"><button class="btn ghost full" data-a="clearR">Очистить ответы</button></div></div></div>`;
@@ -608,7 +610,7 @@ function genRun() {
     const sp = [f.tmStart || f.tmEnd ? `${f.tmStart || '_'} → ${f.tmEnd || '_'} км/ч` : '', String(f.tmIncl || '').trim() !== '' ? `уклон ${f.tmIncl}%` : ''].filter(Boolean).join(', ');
     lines.push(withC(`Дорожка электрическая${sp ? ': ' + sp : ''}`, f.tmC));
   } else if (f.tm === 'изогнутая') lines.push('Дорожка изогнутая');
-  lines.push(f.exec === 'изменено' ? `Выполнение: изменено${(f.execC || '').trim() ? ' — ' + f.execC.trim() : ''}` : withC(`Выполнение: ${f.exec || '_'}`, f.execC));
+  lines.push(f.exec === 'изменено' ? `Выполнение: изменено${(f.execC || '').trim() ? ' | ' + f.execC.trim() : ''}` : withC(`Выполнение: ${f.exec || '_'}`, f.execC));
   lines.push(withC(`Пульс и ощущения: ${f.hr || '_'}`, f.hrC));
   if (!tm) lines.push(withC(`Условия: ${(f.cond || []).length ? f.cond.join(', ') : '_'}`, f.condC));
   lines.push(withC(`Боль/дискомфорт: ${pain}`, f.painC));
@@ -664,7 +666,7 @@ document.addEventListener('click', ev => {
     case 'done': {
       const dn = done();
       if (dn[id]) { delete dn[id]; delete rir()[id]; }
-      else { dn[id] = Date.now(); const e = dayEx(S.day).find(x => x.id === id); if (!e.noRir) UI.sheet = id; }
+      else { dn[id] = Date.now(); UI.open[id] = false; const e = dayEx(S.day).find(x => x.id === id); if (!e.noRir) UI.sheet = id; }
       save(); break;
     }
     case 'rir': UI.sheet = id; break;
@@ -673,6 +675,7 @@ document.addEventListener('click', ev => {
     case 'goStrength': UI.page = 'strength'; UI.keepScrollReset = true; window.scrollTo(0, 0); break;
     case 'goRun': UI.page = 'run'; UI.keepScrollReset = true; window.scrollTo(0, 0); break;
     case 'back': UI.page = null; UI.keepScrollReset = true; window.scrollTo(0, 0); break;
+    case 'addRirNote': UI.cOpen['rir_' + id] = true; render(); { const el = document.querySelector(`[data-in=rirNote][data-id=${id}]`); el && el.focus(); } return;
     case 'rirSet': { const r = rir(); if (r[id] === t.dataset.v) delete r[id]; else r[id] = t.dataset.v; save(); break; }
     case 'opt': {
       const f = curForm(), fld = t.dataset.f, v = t.dataset.v;
@@ -711,6 +714,7 @@ document.addEventListener('input', ev => {
   const id = t.dataset.id;
   if (t.tagName === 'TEXTAREA') autosize(t);
   if (k === 'f') { curForm()[t.dataset.f] = t.value; save(); return; }
+  if (k === 'rirNote') { const f = sForm(); f.rirNotes = { ...(f.rirNotes || {}), [id]: t.value }; save(); return; }
   if (k === 'name') { setEdit(id, { name: t.value.trim() ? t.value : PROG.flatMap(d => d.ex).find(e => e.id === id).name }); return; }
   if (k === 'rest') { setEdit(id, { rest: t.value }); return; }
   if (k === 'tech') { const base = PROG.flatMap(d => d.ex).find(e => e.id === id); const def = techList(base).join('\n'); const e = { ...(S.edits[id] || {}) }; if (t.value.trim() === def.trim()) delete e.tech; else e.tech = t.value; if (Object.keys(e).length) S.edits[id] = e; else delete S.edits[id]; save(); return; }
