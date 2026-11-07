@@ -192,10 +192,9 @@ header { position: sticky; top: 0; z-index: 20; background: var(--bg); padding-t
 
 /* bottom bar */
 .kb-open .bbar { display: none; }
-.kb-open body { padding-bottom: 65vh; }
-.kb-open .page .body { padding-bottom: 65vh; }
-.kb-open .ov { align-items: flex-start; }
-.kb-open .sheet { border-radius: 0 0 20px 20px; padding-top: calc(14px + env(safe-area-inset-top)); padding-bottom: 14px; max-height: 50vh; border-top: 0; }
+.kb-open body { padding-bottom: 45vh; }
+.kb-open .page .body { padding-bottom: 45vh; }
+.kb-open .sheet { padding-top: 12px; padding-bottom: 12px; }
 .kb-open .sheet > p { display: none; }
 .kb-open .sheet .q, .kb-open .sheet .sub-l { display: none; }
 .kb-open .sheet h3 { margin-bottom: 10px; }
@@ -222,8 +221,8 @@ header { position: sticky; top: 0; z-index: 20; background: var(--bg); padding-t
 .rirgrid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
 .rirgrid button { height: 54px; border-radius: 14px; background: var(--surface2); border: 1px solid var(--line2); font: 800 20px 'Onest'; }
 .rirgrid button.on { background: var(--orange); color: var(--on-orange); border-color: var(--orange); }
-.sheet .skip { margin-top: 10px; width: 100%; }
 .sheet-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+.sheet-row.one { grid-template-columns: 1fr; }
 .sheet-note { margin-top: 12px; }
 .opts.grip { gap: 6px; }
 
@@ -298,11 +297,10 @@ header { position: sticky; top: 0; z-index: 20; background: var(--bg); padding-t
 <script>
 'use strict';
 const KEY = 'strength-tracker-v3';
-const OLD_KEY = 'strength-tracker-v1';
 const W = (s, r, w, rest) => ({ s, r, w, rest });
 const MAHI_NOTE = 'Зачёт по первым трём подходам. Если в 4-м подходе меньше 12 повторов, в следующий раз 4-й подход с гантелями на шаг легче.';
 const PROG = [
-  { label: 'День 1', wd: 'Пн', ex: [
+  { label: 'День 1', ex: [
     { id: 'd1e1', name: 'Жим ногами', short: 'жим ногами', garmin: 'Жим ногами', warm: [W(1, 5, 180, '1:30')], sets: 3, reps: 5, unit: 'r', w: 280, kind: 'leg', rest: '2:30', tech: 'Стопы на ширине плеч в середине платформы; колени по линии носков, не внутрь; вниз до ~90° в коленях, таз и поясница прижаты; наверху колени не защёлкивать, толкать всей стопой' },
     { id: 'd1e2', name: 'Румынская тяга на блоке', short: 'румынская тяга', garmin: 'Становая тяга на прямых ногах', warm: [W(1, 5, 15, '0:45')], sets: 3, reps: 8, unit: 'r', w: 37.5, kind: 'machine', rest: '1:30', tech: 'Стоять вплотную к блоку, чтобы трос шёл почти вертикально; колени чуть согнуты и не меняют угол; таз назад, спина ровная; вниз до натяжения задней поверхности бедра; вверх: таз вперёд, сжать ягодицы, без прогиба назад', grips: ['прямая металлическая короткая', 'V пластиковая короткая'] },
     { id: 'd1e3', name: 'Жим штанги лёжа', short: 'жим лёжа', garmin: 'Жим штанги лежа', warm: [W(1, 5, 50, '1:30')], sets: 3, reps: 8, unit: 'r', w: 75, kind: 'bar', rest: '1:45', tech: 'Лопатки сведены и опущены, стопы в пол; хват чуть шире плеч, запястья над локтями; гриф к низу груди, локти 45–70° к корпусу; без отбива от груди; страховка на тяжёлых подходах' },
@@ -311,7 +309,7 @@ const PROG = [
     { id: 'd1e6', name: 'Подъём на носки сидя', short: 'носки сидя', garmin: 'Подъем на носках с отягощением сидя', sets: 3, reps: 10, unit: 'r', w: 45, kind: 'machine', rest: '1:00', tech: 'Валик у колен; внизу растяжение и пауза 1 с, без отскока; вверху максимально высоко, давление через основание большого пальца' },
     { id: 'd1e7', name: 'Рычажный тренажёр на бицепс', short: 'бицепс рычажный', garmin: 'Сгибание на бицепс на тросовом тренажере', sets: 3, reps: 12, unit: 'r', w: 25, kind: 'machine', rest: '1:00', tech: 'Локти на оси тренажёра, прижаты к подушке; внизу почти полное разгибание, вес не бросать; плечи и локти не поднимаются' },
   ]},
-  { label: 'День 2', wd: 'Ср', ex: [
+  { label: 'День 2', ex: [
     { id: 'd2e1', name: 'Тяга Т-грифа с упором грудью', short: 'Т-гриф', garmin: 'Тяга штанги в наклоне', warm: [W(1, 10, 25, '1:00')], sets: 3, reps: 8, unit: 'r', w: 50, kind: 'bar', rest: '1:45', tech: 'Высота подушки: верх груди на подушке, руки свободно висят и достают до рукоятей; грудь прижата к подушке весь подход, не отрывать её при подъёме; стопы упираются в платформу, колени мягкие, поясница нейтральная, без прогиба; тянуть к низу груди, локти назад вдоль корпуса; внизу руки полностью выпрямлены' },
     { id: 'd2e2', name: 'Жим от груди сидя в тренажёре', short: 'жим в блочном', garmin: 'Жим от груди на подвесном тренажере', sets: 3, reps: 10, unit: 'r', w: 75, kind: 'machine', rest: '1:30', tech: 'Высота сиденья: рукояти на уровне середины груди; спина и лопатки прижаты к спинке, лопатки сведены, плечи не выходят вперёд; жать перед собой, локти не защёлкивать; назад медленно до лёгкого растяжения груди, стек не стучит' },
     { id: 'd2e3', name: 'Жим гантелей сидя', short: 'жим гантелей сидя', garmin: 'Жим гантелей сидя', sets: 3, reps: 10, unit: 'r', w: 40, kind: 'db', rest: '1:30', tech: 'Спинка почти вертикальная, лопатки и таз прижаты; предплечья вертикальны, старт на уровне плеч; вверх и чуть внутрь, без стука гантелей; поясницу дугой не прогибать' },
@@ -320,7 +318,7 @@ const PROG = [
     { id: 'd2e6', name: 'Сгибание рук на нижнем блоке', short: 'бицепс на блоке', garmin: 'Сгибание на бицепс на тросовом тренажере', sets: 3, reps: 12, unit: 'r', w: 22.5, kind: 'machine', rest: '1:00', tech: 'Стоять близко к блоку; локти у боков и неподвижны; внизу полное разгибание; без раскачки корпусом, наверху сжатие', grips: ['прямая металлическая короткая', 'прямая металлическая длинная', 'канат длинный', 'канат короткий'] },
     { id: 'd2e7', name: 'Отжимания в тренажёре сидя', short: 'отжимания в тренажёре', garmin: 'Жим Вниз На Трицепс', sets: 3, reps: 12, unit: 'r', w: 110, kind: 'machine', rest: '1:00', tech: 'Лопатки опущены и сведены, плечи не поднимаются к ушам; корпус вертикально или чуть вперёд; локти идут назад вдоль корпуса, не в стороны; вниз до ~90° в локтях, не глубже; вверху руки почти прямые, локти не защёлкивать; без рывка' },
   ]},
-  { label: 'День 3', wd: 'Пт', ex: [
+  { label: 'День 3', ex: [
     { id: 'd3e1', name: 'Шаги на платформу с гантелями', short: 'шаги на платформу', garmin: 'Подъем С Гантелями На Возвышение', warm: [W(1, 5, 12, '1:00')], sets: 3, reps: 8, unit: 'leg', w: 24, kind: 'db', rest: '1:45', tech: 'Высота: колено не больше 90°; стопа целиком на платформе, толчок пяткой рабочей ноги, задняя почти не помогает; колено по линии носка; спуск медленно; сначала все повторы одной ногой, потом другой', note: 'В Garmin повторы считаются на обе ноги: разминка 10, рабочие 16.' },
     { id: 'd3e2', name: 'Сгибания ног сидя', short: 'сгибания ног сидя', garmin: 'Сгибание ног с отягощением', sets: 3, reps: 12, unit: 'r', w: 67.5, kind: 'machine', rest: '1:30', tech: 'Колено на оси тренажёра, валик над пятками, бедро прижато; сгибать полностью, сжатие внизу; возврат медленно, таз не отрывается' },
     { id: 'd3e3', name: 'Пек-дек', short: 'пек-дек', garmin: 'Сведение рук на подвесном тренажере', sets: 3, reps: 12, unit: 'r', w: 52.5, kind: 'machine', rest: '1:00', tech: 'Высота сиденья: локти на уровне плеч или чуть ниже, согнуты ~90°; предплечья и локти прижаты к подушкам, кисти расслаблены, давить локтями, не кистями; лопатки прижаты к спинке, грудь вперёд; свести подушки перед грудью, пауза 1 с; назад медленно до умеренного растяжения груди, плечи не выходят вперёд, без боли в плече' },
@@ -352,26 +350,15 @@ const blankR = () => ({ tm: '', tmMin: '', tmMax: '', tmIncl: '', distTm: '', di
 function load() {
   let s = null;
   try { s = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) {}
-  if (!s) {
-    s = {};
-    try { // перенос настроек из прошлой версии
-      const o = JSON.parse(localStorage.getItem(OLD_KEY) || 'null');
-      if (o) {
-        s.order = o.order || {}; s.links = o.links || {}; s.edits = {};
-        Object.entries(o.custom || {}).forEach(([id, c]) => { const e = s.edits[id] = s.edits[id] || {}; if (c.name && c.name.trim()) e.name = c.name; if (c.tech != null) e.tech = c.tech; });
-      }
-    } catch (e) {}
-  }
+  if (!s || typeof s !== 'object') s = {};
   const wd = new Date().getDay();
-  if (s.rForm) { const m = { 'да': 'электрическая', 'беговая дорожка': 'электрическая', 'изогнутая дорожка': 'изогнутая', 'механическая дорожка': 'изогнутая', 'нет': '', 'улица': '' }; if (s.rForm.tm in m) s.rForm.tm = m[s.rForm.tm]; if (Array.isArray(s.rForm.cond)) s.rForm.cond = s.rForm.cond.flatMap(c => c === 'дождь/снег' ? ['дождь'] : [c]); }
+  // При обновлении весов в программе PROG_VER увеличивается: ручные веса/подходы из «Правки» сбрасываются, названия и техника остаются
   const PROG_VER = 4;
   if (s.progVer !== PROG_VER) { Object.values(s.edits || {}).forEach(e => { ['w', 'sets', 'reps', 'rest', 'warm', 'note'].forEach(k => delete e[k]); }); Object.keys(s.edits || {}).forEach(k => { if (!Object.keys(s.edits[k]).length) delete s.edits[k]; }); s.progVer = PROG_VER; }
-  if (s.rForm && (s.rForm.tmStart != null || s.rForm.tmEnd != null) && s.rForm.tmMin == null) { const a = s.rForm.tmStart, b = s.rForm.tmEnd; s.rForm.tmMin = a || ''; s.rForm.tmMax = b || ''; delete s.rForm.tmStart; delete s.rForm.tmEnd; }
-  return Object.assign({ theme: 'ddx', grip: {}, day: wd === 1 || wd === 2 ? 0 : wd === 3 || wd === 4 ? 1 : 2, edits: {}, order: {}, links: {}, done: {}, rir: {}, warm: {}, warmOpen: null, sForm: {}, rForm: blankR(), last: null }, s);
+  return Object.assign({ theme: 'ddx', grip: {}, day: wd === 1 || wd === 2 ? 0 : wd === 3 || wd === 4 ? 1 : 2, edits: {}, order: {}, links: {}, done: {}, rir: {}, warm: {}, warmOpen: null, sForm: {}, rForm: blankR(), touch: {}, archive: [] }, s);
 }
 let S = load();
-if (!S.touch) { S.touch = {}; [0, 1, 2].forEach(d => { if (strengthHasData(d)) S.touch['s' + d] = { first: Date.now(), last: Date.now() }; }); if (runHasData()) S.touch.run = { first: Date.now(), last: Date.now() }; }
-const UI = { edit: false, open: {}, sheet: null, page: null, toast: null, cOpen: {} };
+const UI = { edit: false, open: {}, sheet: null, sheetNote: false, page: null, cOpen: {}, arcOpen: null };
 function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
 const KEEP_MS = 12 * 3600 * 1000;
 function touch(key) { S.touch = S.touch || {}; const now = Date.now(), t = S.touch[key]; S.touch[key] = { first: t ? t.first : now, last: now }; }
@@ -508,17 +495,17 @@ function sheetRir() {
   return `<div class="ov" data-a="closeSheet"><div class="sheet" data-stop="1">
     <div class="q hand">сколько осталось в запасе?</div>
     <h3>${esc(e.name)}</h3>
-    <p>Сколько ещё повторов смог бы сделать с хорошей техникой в последнем рабочем подходе</p>
+    <p>Сколько ещё повторов смог бы сделать с хорошей техникой в последнем рабочем подходе. Без выбора упражнение просто останется отмеченным.</p>
     ${gripsOf(e) ? `<div class="sub-l">Рукоять</div>${gripChips(e)}<div style="height:12px"></div>` : ''}
     <div class="rirgrid">${RIRS.map(v => `<button class="${cur === v ? 'on' : ''}" data-a="setRir" data-v="${v}">${v}</button>`).join('')}</div>
     ${withNote ? `<textarea class="sheet-note" rows="2" placeholder="комментарий к упражнению" data-in="rirNote" data-id="${e.id}">${esc(note)}</textarea>` : ''}
-    <div class="sheet-row">${withNote ? `<button class="btn ghost" data-a="closeSheet">Пропустить</button>` : `<button class="btn ghost" data-a="sheetNote">+ комментарий</button>`}<button class="btn pri" data-a="closeSheet">Сохранить</button></div>
+    <div class="sheet-row ${withNote ? 'one' : ''}">${withNote ? '' : `<button class="btn ghost" data-a="sheetNote">+ комментарий</button>`}<button class="btn pri" data-a="closeSheet">Сохранить</button></div>
   </div></div>`;
 }
 
 /* --- editor --- */
-function stepper(label, field, val, id, extra = '') {
-  return `<div class="stp"><label>${label}</label><div class="c"><button data-a="stp" data-id="${id}" data-f="${field}" data-d="-1" ${extra}>−</button><input inputmode="decimal" value="${esc(val)}" data-in="num" data-id="${id}" data-f="${field}" ${extra}><button data-a="stp" data-id="${id}" data-f="${field}" data-d="1" ${extra}>+</button></div></div>`;
+function stepper(label, field, val, id) {
+  return `<div class="stp"><label>${label}</label><div class="c"><button data-a="stp" data-id="${id}" data-f="${field}" data-d="-1">−</button><input inputmode="decimal" value="${esc(val)}" data-in="num" data-id="${id}" data-f="${field}"><button data-a="stp" data-id="${id}" data-f="${field}" data-d="1">+</button></div></div>`;
 }
 function pageEditor() {
   const list = dayEx(S.day);
@@ -553,7 +540,7 @@ function pageEditor() {
   h += `</section>`;
   if (S.order[S.day]) h += `<button class="btn ghost" style="width:100%;margin-top:10px" data-a="resetOrder">Вернуть порядок программы</button>`;
   h += `<div class="actions"><button class="btn sec" data-a="backup">Сохранить копию</button><label class="btn sec">Восстановить<input type="file" accept=".json,application/json" class="hidden" data-in="restore"></label></div>
-  <p class="tip">Копия хранит программу с вашими правками, отметки и последний отчёт.</p></main>`;
+  <p class="tip">Копия хранит ваши правки программы, текущие отметки и отчёты, а также архив.</p></main>`;
   return h;
 }
 
@@ -645,29 +632,29 @@ function plural(n, a, b, c) { const m = n % 10, mm = n % 100; return m === 1 && 
 /* --- run report --- */
 function pageRun() {
   const f = S.rForm, tm = f.tm === 'электрическая' || f.tm === 'изогнутая';
-  let n = 0; const num = () => `<span class="n hand">${++n}</span>`;
+  let n = 0; const qn = () => `<span class="n hand">${++n}</span>`;
   let h = `<div class="page">${pageHead('Бег', 'отчёт · ' + today())}<div class="body wrap">`;
-  h += `<div class="q-card"><div class="qt">${num()}<b>Дорожка</b></div><div class="hint">только если бежал на беговом тренажёре; на улице ничего не выбирать</div>
+  h += `<div class="q-card"><div class="qt">${qn()}<b>Дорожка</b></div><div class="hint">только если бежал на беговом тренажёре; на улице ничего не выбирать</div>
     ${opts(f, 'tm', ['электрическая', 'изогнутая'])}
     ${f.tm === 'электрическая' ? `<div class="grid3" style="margin-top:10px"><div><label>Мин. скорость, км/ч</label><input inputmode="decimal" value="${esc(f.tmMin)}" data-in="f" data-f="tmMin"></div><div><label>Макс. скорость, км/ч</label><input inputmode="decimal" value="${esc(f.tmMax)}" data-in="f" data-f="tmMax"></div><div><label>Уклон, %</label><input inputmode="decimal" value="${esc(f.tmIncl)}" data-in="f" data-f="tmIncl"></div></div>` : ''}
     ${tm ? `<div class="grid2" style="margin-top:10px"><div><label>Расстояние по дорожке, км</label><input inputmode="decimal" value="${esc(f.distTm)}" data-in="f" data-f="distTm"></div><div><label>Расстояние по часам, км</label><input inputmode="decimal" value="${esc(f.distWatch)}" data-in="f" data-f="distWatch"></div></div>` : ''}
     ${f.tm === 'электрическая' ? cmt(f, 'tmC', 'для интервалов: скорость на каждом отрезке') : ''}</div>`;
-  h += `<div class="q-card"><div class="qt">${num()}<b>Выполнение</b></div>
+  h += `<div class="q-card"><div class="qt">${qn()}<b>Выполнение</b></div>
     ${opts(f, 'exec', ['по плану', 'изменено'], { warn: ['изменено'] })}
     ${cmt(f, 'execC', 'что изменено и почему; для качественных: почему не попал в цель на отрезке', f.exec === 'изменено')}</div>`;
-  h += `<div class="q-card"><div class="qt">${num()}<b>Пульс и ощущения</b></div>
+  h += `<div class="q-card"><div class="qt">${qn()}<b>Пульс и ощущения</b></div>
     ${opts(f, 'hr', ['совпадают', 'тяжелее, чем пульс', 'легче, чем пульс'], { warn: ['тяжелее, чем пульс'] })}
     ${cmt(f, 'hrC', 'подробности')}</div>`;
-  if (!tm) h += `<div class="q-card"><div class="qt">${num()}<b>Условия</b></div>
+  if (!tm) h += `<div class="q-card"><div class="qt">${qn()}<b>Условия</b></div>
     ${opts(f, 'cond', ['обычные', 'жара', 'холод', 'ветер', 'дождь', 'снег', 'гололёд', 'рельеф'], { multi: true })}
     ${cmt(f, 'condC', 'подробности')}</div>`;
-  h += `<div class="q-card"><div class="qt">${num()}<b>Боль / дискомфорт</b></div>
+  h += `<div class="q-card"><div class="qt">${qn()}<b>Боль / дискомфорт</b></div>
     ${opts(f, 'pain', ['нет', 'есть'], { warn: ['есть'] })}
     ${f.pain === 'есть' ? `<div class="sub-l">Где</div><input value="${esc(f.painWhere)}" placeholder="колено, ахилл, голень…" data-in="f" data-f="painWhere">
       <div class="sub-l">Когда</div>${opts(f, 'painWhen', ['во время', 'после', 'во время и после'])}
       <div class="sub-l">Сила, 0–10 (1–2 чувствуется · 3–4 мешает · 5+ меняет технику)</div>${scoreOpts(f, 'painScore')}` : ''}
     ${cmt(f, 'painC', 'подробности')}</div>`;
-  h += `<div class="q-card"><div class="qt">${num()}<b>Комментарий</b></div>
+  h += `<div class="q-card"><div class="qt">${qn()}<b>Комментарий</b></div>
     <textarea rows="3" placeholder="всё, чего нет в данных Garmin${tm ? '; в зале было жарко или душно, тоже сюда' : ''}" data-in="f" data-f="comment">${esc(f.comment)}</textarea></div>`;
   h += `<div class="actions"><button class="btn org full" data-a="genR">${f.out ? 'Пересобрать отчёт' : 'Сформировать отчёт'}</button></div>`;
   h += outBlock(f);
@@ -705,7 +692,7 @@ function toast(t) {
 function setEdit(id, patch) {
   const base = PROG.flatMap(d => d.ex).find(e => e.id === id);
   const e = { ...(S.edits[id] || {}), ...patch };
-  Object.keys(e).forEach(k => { if (k !== 'warm' && JSON.stringify(e[k]) === JSON.stringify(base[k])) delete e[k]; });
+  Object.keys(e).forEach(k => { if (e[k] === undefined || (k !== 'warm' && JSON.stringify(e[k]) === JSON.stringify(base[k]))) delete e[k]; });
   if (e.warm && JSON.stringify(e.warm) === JSON.stringify(base.warm || [])) delete e.warm;
   if (Object.keys(e).length) S.edits[id] = e; else delete S.edits[id];
   save();
@@ -740,7 +727,7 @@ document.addEventListener('click', ev => {
     case 'edit': UI.edit = !UI.edit; UI.keepScrollReset = true; window.scrollTo(0, 0); break;
     case 'warmToggle': { const wm = S.warm[S.day] || {}; const all = WARM.every((_, i) => wm[i]); S.warmOpen = !(S.warmOpen ?? !all); save(); break; }
     case 'warm': { const m = { ...(S.warm[S.day] || {}) }; m[t.dataset.i] = !m[t.dataset.i]; S.warm[S.day] = m; if (WARM.every((_, i) => m[i])) S.warmOpen = false; save(); break; }
-    case 'open': if (ev.target.closest('[data-a="done"]')) return; UI.open[id] = !UI.open[id]; break;
+    case 'open': UI.open[id] = !UI.open[id]; break;
     case 'done': {
       const dn = done();
       if (dn[id]) { delete dn[id]; delete rir()[id]; }
@@ -770,8 +757,8 @@ document.addEventListener('click', ev => {
     case 'genR': genRun(); save(); render(); document.getElementById('out')?.scrollIntoView({ behavior: 'smooth' }); return;
     case 'copy': { const f = curForm(); copyText(f.out).then(ok => toast(ok ? 'Скопировано' : 'Не удалось скопировать')); return; }
     case 'finishS': if (!confirm('Завершить тренировку? Отчёт уйдёт в архив, отметки и ответы этого дня сбросятся.')) return;
-      closeStrength(S.day); S.warmOpen = null; UI.cOpen = {}; UI.page = null; save(); render(); toast('Отчёт сохранён в архив'); return;
-    case 'clearR': if (!confirm('Завершить отчёт по бегу? Он уйдёт в архив, ответы сбросятся.')) return; closeRun(); UI.cOpen = {}; save(); render(); toast('Отчёт сохранён в архив'); return;
+      { const had = strengthHasData(S.day); closeStrength(S.day); S.warmOpen = null; UI.cOpen = {}; UI.page = null; UI.keepScrollReset = true; save(); render(); toast(had ? 'Отчёт сохранён в архив' : 'Отметки сброшены'); return; }
+    case 'clearR': if (!confirm('Завершить отчёт по бегу? Он уйдёт в архив, ответы сбросятся.')) return; { const had = runHasData(); closeRun(); UI.cOpen = {}; UI.page = null; UI.keepScrollReset = true; save(); render(); toast(had ? 'Отчёт сохранён в архив' : 'Ответы очищены'); return; }
     case 'goArchive': UI.page = 'archive'; UI.keepScrollReset = true; window.scrollTo(0, 0); break;
     case 'arcOpen': UI.arcOpen = UI.arcOpen === id ? null : id; break;
     case 'arcCopy': { const e = (S.archive || []).find(x => x.id === id); if (e) copyText(e.text).then(ok => toast(ok ? 'Скопировано' : 'Не удалось скопировать')); return; }
@@ -801,7 +788,7 @@ document.addEventListener('input', ev => {
   if (k === 'rirNote') { touch('s' + S.day); const f = sForm(); f.rirNotes = { ...(f.rirNotes || {}), [id]: t.value }; save(); return; }
   if (k === 'name') { setEdit(id, { name: t.value.trim() ? t.value : PROG.flatMap(d => d.ex).find(e => e.id === id).name }); return; }
   if (k === 'rest') { setEdit(id, { rest: t.value }); return; }
-  if (k === 'grips') { const arr = t.value.split(',').map(x => x.trim()).filter(Boolean); setEdit(id, { grips: arr }); return; }
+  if (k === 'grips') { const arr = t.value.split(',').map(x => x.trim()).filter(Boolean), base = PROG.flatMap(d => d.ex).find(e => e.id === id); setEdit(id, { grips: arr.length || base.grips ? arr : undefined }); return; }
   if (k === 'tech') { const base = PROG.flatMap(d => d.ex).find(e => e.id === id); const def = techList(base).join('\n'); const e = { ...(S.edits[id] || {}) }; if (t.value.trim() === def.trim()) delete e.tech; else e.tech = t.value; if (Object.keys(e).length) S.edits[id] = e; else delete S.edits[id]; save(); return; }
   if (k === 'link') { const v = t.value.trim(); if (v) S.links[id] = /^https?:\/\//i.test(v) ? v : 'https://' + v; else delete S.links[id]; save(); return; }
   if (k.startsWith('wrest')) { const e = dayEx(S.day).find(x => x.id === id), warm = e.warm.map(x => ({ ...x })); warm[+k.slice(5)].rest = t.value; setEdit(id, { warm }); return; }
@@ -821,39 +808,79 @@ document.addEventListener('change', ev => {
     const file = t.files && t.files[0]; t.value = ''; if (!file) return;
     file.text().then(txt => {
       const j = JSON.parse(txt), d = j.data || j;
-      if (!d || typeof d !== 'object' || !('edits' in d || 'custom' in d)) throw new Error('bad');
+      if (!d || typeof d !== 'object' || !('edits' in d)) throw new Error('bad');
       if (!confirm('Заменить текущие данные данными из копии?')) return;
-      if ('edits' in d) S = Object.assign(load(), d);
-      else { localStorage.setItem(OLD_KEY, JSON.stringify(d)); localStorage.removeItem(KEY); S = load(); }
+      localStorage.setItem(KEY, JSON.stringify(d)); S = load(); delete S.last;
       save(); render(); toast('Данные восстановлены');
     }).catch(() => toast('Не удалось прочитать файл'));
   }
   if (k === 'name' || k === 'rest' || k === 'tech' || k.startsWith('wrest')) render();
 });
 window.addEventListener('pagehide', save);
+/* ---------- системная кнопка «Назад» (Android) ----------
+   Закрывает то, что открыто сверху: поле ввода → окно RIR → отчёт/архив → режим правки → раскрытая техника.
+   На главном экране сворачивает приложение, как системные приложения Android (данные не теряются). */
+function goBack() {
+  const f = document.activeElement;
+  if (f && /^(INPUT|TEXTAREA)$/.test(f.tagName)) { f.blur(); return true; }
+  if (UI.sheet) { UI.sheet = null; UI.sheetNote = false; render(); return true; }
+  if (UI.page === 'archive' && UI.arcOpen) { UI.arcOpen = null; render(); return true; }
+  if (UI.page) { UI.page = null; UI.keepScrollReset = true; window.scrollTo(0, 0); render(); return true; }
+  if (UI.edit) { UI.edit = false; UI.keepScrollReset = true; window.scrollTo(0, 0); render(); return true; }
+  if (Object.values(UI.open).some(Boolean)) { UI.open = {}; render(); return true; }
+  return false;
+}
+(function nativeBack() {
+  const C = window.Capacitor;
+  if (!(C && C.isNativePlatform && C.isNativePlatform())) return;
+  const App = (C.Plugins && C.Plugins.App) || (C.registerPlugin && C.registerPlugin('App'));
+  if (!App || !App.addListener) return;
+  try { App.addListener('backButton', () => { if (!goBack()) { save(); App.minimizeApp ? App.minimizeApp() : App.exitApp(); } }); } catch (e) {}
+})();
 (function keyboardFix() {
-  // На Android с edge-to-edge клавиатура накрывает WebView, не уменьшая его; высоту клавиатуры узнать нельзя.
-  // Поэтому пока поле в фокусе: снизу добавляем запас прокрутки, поле поднимаем в верхнюю треть экрана, окно RIR переносим наверх.
+  // Держим активное поле сразу над клавиатурой. Если WebView уменьшается под клавиатуру, берём реальную видимую высоту;
+  // если клавиатура просто накрывает экран (размер не меняется), считаем, что она занимает ~45% высоты.
   const vv = window.visualViewport, root = document.documentElement;
+  let baseH = window.innerHeight, focusAt = 0, offT;
+  window.addEventListener('orientationchange', () => setTimeout(() => { baseH = window.innerHeight; }, 500));
   const field = () => { const el = document.activeElement; return el && /^(INPUT|TEXTAREA)$/.test(el.tagName) && el.type !== 'file' ? el : null; };
-  const reveal = () => {
+  function visibleH() {
+    if (!field()) baseH = Math.max(baseH, window.innerHeight);
+    const vis = vv ? Math.min(vv.height, window.innerHeight) : window.innerHeight;
+    if (baseH - vis > 120) return { h: vis, top: vv ? vv.offsetTop : 0, real: true };      // клавиатура видна по размеру окна
+    if (Date.now() - focusAt > 450) return { h: Math.round(baseH * 0.55), top: 0, real: false }; // размер не изменился: оценка
+    return null;                                                                              // клавиатура ещё выезжает
+  }
+  function reveal() {
     const el = field(); if (!el) return;
+    const v = visibleH(); if (!v) return;
     const sheet = el.closest('.sheet');
-    if (sheet) { const r = el.getBoundingClientRect(), sr = sheet.getBoundingClientRect(); if (r.bottom > sr.bottom - 8 || r.top < sr.top) sheet.scrollTop += r.top - sr.top - 60; return; }
-    const H = Math.min(window.innerHeight, vv ? vv.height : window.innerHeight);
-    const r = el.getBoundingClientRect(), target = H * 0.2, delta = r.top - target;
-    if (Math.abs(delta) < 12) return;
-    const pg = el.closest('.page');
-    if (pg) pg.scrollBy({ top: delta, behavior: 'smooth' }); else window.scrollBy({ top: delta, behavior: 'smooth' });
-  };
-  let offT;
+    if (sheet) {
+      sheet.style.marginBottom = v.real ? '0px' : Math.round(baseH - v.h) + 'px';
+      const sr = sheet.getBoundingClientRect(), r = el.getBoundingClientRect();
+      if (r.bottom > sr.bottom - 8) sheet.scrollTop += r.bottom - sr.bottom + 8;
+      if (r.top < sr.top + 8) sheet.scrollTop -= sr.top + 8 - r.top;
+      return;
+    }
+    const pg = el.closest('.page'), hdr = (pg || document).querySelector('header');
+    const minTop = (hdr ? Math.max(0, hdr.getBoundingClientRect().bottom) : 0) + 8;
+    const maxBottom = v.top + v.h - 12;
+    const r = el.getBoundingClientRect();
+    let delta = 0;
+    if (r.bottom > maxBottom) delta = r.bottom - maxBottom;
+    if (r.top - delta < minTop) delta = r.top - minTop;     // высокое поле: показываем его начало
+    if (Math.abs(delta) < 4) return;
+    if (pg) pg.scrollTop += delta; else window.scrollTo(0, window.scrollY + delta);
+  }
   document.addEventListener('focusin', () => {
     if (!field()) return;
-    clearTimeout(offT); root.classList.add('kb-open');
-    requestAnimationFrame(reveal); setTimeout(reveal, 350); setTimeout(reveal, 800);
+    clearTimeout(offT); focusAt = Date.now(); root.classList.add('kb-open');
+    [80, 300, 500, 800].forEach(t => setTimeout(reveal, t));
   });
-  document.addEventListener('focusout', () => { clearTimeout(offT); offT = setTimeout(() => { if (!field()) root.classList.remove('kb-open'); }, 200); });
-  if (vv) vv.addEventListener('resize', () => setTimeout(reveal, 60));
+  document.addEventListener('focusout', () => { clearTimeout(offT); offT = setTimeout(() => { if (!field()) { root.classList.remove('kb-open'); const sh = document.querySelector('.sheet'); if (sh) sh.style.marginBottom = ''; } }, 200); });
+  document.addEventListener('input', () => setTimeout(reveal, 0));
+  if (vv) vv.addEventListener('resize', () => setTimeout(reveal, 30));
+  window.addEventListener('resize', () => setTimeout(reveal, 30));
 })();
 document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') expire(); });
 setInterval(expire, 10 * 60 * 1000);
