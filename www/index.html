@@ -838,25 +838,30 @@ function goBack() {
   try { App.addListener('backButton', () => { if (!goBack()) { save(); App.minimizeApp ? App.minimizeApp() : App.exitApp(); } }); } catch (e) {}
 })();
 (function keyboardFix() {
-  // Держим активное поле сразу над клавиатурой. Если WebView уменьшается под клавиатуру, берём реальную видимую высоту;
-  // если клавиатура просто накрывает экран (размер не меняется), считаем, что она занимает ~45% высоты.
+  // Клавиатура. В APK плагин @capacitor/keyboard сообщает о показе/скрытии клавиатуры и её высоте сразу,
+  // а режим resizeOnFullScreen заставляет Android уменьшать окно под клавиатуру. Логика:
+  //  1) окно уменьшилось — берём реальную видимую высоту; 2) не уменьшилось, но плагин дал высоту — используем её;
+  //  3) плагина нет (старая сборка) — через 0,6 с оцениваем клавиатуру в 40% экрана.
+  const C = window.Capacitor, native = !!(C && C.isNativePlatform && C.isNativePlatform());
   const vv = window.visualViewport, root = document.documentElement;
-  let baseH = window.innerHeight, focusAt = 0, offT;
+  let baseH = window.innerHeight, kbShown = false, kbH = 0, gotEvent = false, focusAt = 0, offT, fbT;
   window.addEventListener('orientationchange', () => setTimeout(() => { baseH = window.innerHeight; }, 500));
   const field = () => { const el = document.activeElement; return el && /^(INPUT|TEXTAREA)$/.test(el.tagName) && el.type !== 'file' ? el : null; };
-  function visibleH() {
-    if (!field()) baseH = Math.max(baseH, window.innerHeight);
+  function visible() {
+    if (!field() && !kbShown) baseH = Math.max(baseH, window.innerHeight);
     const vis = vv ? Math.min(vv.height, window.innerHeight) : window.innerHeight;
-    if (baseH - vis > 120) return { h: vis, top: vv ? vv.offsetTop : 0, real: true };      // клавиатура видна по размеру окна
-    if (Date.now() - focusAt > 450) return { h: Math.round(baseH * 0.55), top: 0, real: false }; // размер не изменился: оценка
-    return null;                                                                              // клавиатура ещё выезжает
+    if (baseH - vis > 100) return { h: vis, top: vv ? vv.offsetTop : 0, lift: 0 };                       // окно уменьшилось
+    if (kbShown && kbH > 100 && kbH < baseH * 0.7) return { h: baseH - kbH, top: 0, lift: kbH };          // высота от плагина
+    if (native && !gotEvent && Date.now() - focusAt > 550) { const k = Math.round(baseH * 0.4); return { h: baseH - k, top: 0, lift: k }; }
+    if (!native) return { h: vis, top: vv ? vv.offsetTop : 0, lift: 0 };                                  // браузер: visualViewport
+    return null;
   }
   function reveal() {
     const el = field(); if (!el) return;
-    const v = visibleH(); if (!v) return;
+    const v = visible(); if (!v) return;
     const sheet = el.closest('.sheet');
     if (sheet) {
-      sheet.style.marginBottom = v.real ? '0px' : Math.round(baseH - v.h) + 'px';
+      sheet.style.marginBottom = v.lift ? v.lift + 'px' : '';
       const sr = sheet.getBoundingClientRect(), r = el.getBoundingClientRect();
       if (r.bottom > sr.bottom - 8) sheet.scrollTop += r.bottom - sr.bottom + 8;
       if (r.top < sr.top + 8) sheet.scrollTop -= sr.top + 8 - r.top;
@@ -864,23 +869,32 @@ function goBack() {
     }
     const pg = el.closest('.page'), hdr = (pg || document).querySelector('header');
     const minTop = (hdr ? Math.max(0, hdr.getBoundingClientRect().bottom) : 0) + 8;
-    const maxBottom = v.top + v.h - 12;
-    const r = el.getBoundingClientRect();
+    const maxBottom = v.top + v.h - 12, r = el.getBoundingClientRect();
     let delta = 0;
     if (r.bottom > maxBottom) delta = r.bottom - maxBottom;
-    if (r.top - delta < minTop) delta = r.top - minTop;     // высокое поле: показываем его начало
+    if (r.top - delta < minTop) delta = r.top - minTop;
     if (Math.abs(delta) < 4) return;
     if (pg) pg.scrollTop += delta; else window.scrollTo(0, window.scrollY + delta);
   }
+  function reset() {
+    root.classList.remove('kb-open');
+    const sh = document.querySelector('.sheet'); if (sh) sh.style.marginBottom = '';
+  }
+  // события плагина (приходят и как window-события)
+  const onShow = e => { gotEvent = true; kbShown = true; kbH = (e && e.keyboardHeight) || 0; if (field()) { root.classList.add('kb-open'); reveal(); requestAnimationFrame(reveal); setTimeout(reveal, 150); } };
+  const onHide = () => { gotEvent = true; kbShown = false; kbH = 0; const el = field(); if (el) el.blur(); reset(); };
+  window.addEventListener('keyboardWillShow', onShow); window.addEventListener('keyboardDidShow', onShow);
+  window.addEventListener('keyboardWillHide', onHide); window.addEventListener('keyboardDidHide', onHide);
   document.addEventListener('focusin', () => {
     if (!field()) return;
-    clearTimeout(offT); focusAt = Date.now(); root.classList.add('kb-open');
-    [80, 300, 500, 800].forEach(t => setTimeout(reveal, t));
+    clearTimeout(offT); clearTimeout(fbT); focusAt = Date.now(); root.classList.add('kb-open');
+    if (!native || kbShown) { requestAnimationFrame(reveal); setTimeout(reveal, 250); }   // браузер или переход между полями
+    if (native && !gotEvent) fbT = setTimeout(reveal, 600);                                  // сборка без плагина
   });
-  document.addEventListener('focusout', () => { clearTimeout(offT); offT = setTimeout(() => { if (!field()) { root.classList.remove('kb-open'); const sh = document.querySelector('.sheet'); if (sh) sh.style.marginBottom = ''; } }, 200); });
-  document.addEventListener('input', () => setTimeout(reveal, 0));
-  if (vv) vv.addEventListener('resize', () => setTimeout(reveal, 30));
-  window.addEventListener('resize', () => setTimeout(reveal, 30));
+  document.addEventListener('focusout', () => { clearTimeout(offT); offT = setTimeout(() => { if (!field()) reset(); }, 150); });
+  document.addEventListener('input', () => { if (field()) reveal(); });
+  if (vv) vv.addEventListener('resize', () => { if (!field()) return; if (!native && baseH - vv.height < 100) { reset(); return; } reveal(); });
+  window.addEventListener('resize', () => { if (field()) reveal(); });
 })();
 document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') expire(); });
 setInterval(expire, 10 * 60 * 1000);
