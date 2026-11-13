@@ -41,6 +41,91 @@
 [data-theme="graphite"] .title h1 svg { display: none; }
 [data-theme="graphite"] .nm { font-size: 14px; }
 [data-theme="graphite"] .cell small, [data-theme="graphite"] .wu { color: var(--muted); }
+/* ---- общие правила тем без рукописного шрифта ---- */
+[data-theme="gconnect"] .hand, [data-theme="gwatch"] .hand { font-family: inherit; font-weight: 600; font-size: 12px !important; letter-spacing: .06em; text-transform: uppercase; }
+[data-theme="gconnect"] .title h1 svg, [data-theme="gwatch"] .title h1 svg { display: none; }
+[data-theme="gconnect"] body, [data-theme="gconnect"] input, [data-theme="gconnect"] textarea, [data-theme="gconnect"] button,
+[data-theme="gwatch"] body, [data-theme="gwatch"] input, [data-theme="gwatch"] textarea, [data-theme="gwatch"] button { font-family: 'Roboto', system-ui, 'Onest', sans-serif; }
+
+/* ---- Garmin Connect: как приложение на телефоне, светлая или тёмная по системе ---- */
+[data-theme="gconnect"] {
+  --bg: #efefef; --surface: #ffffff; --surface2: #f1f1f1; --line: #e3e3e3; --line2: #cfcfcf;
+  --text: #1b1b1b; --muted: #5f6368; --dim: #8a8d91;
+  --turq: #0a6ebd; --emer: #0a6ebd; --orange: #e8890c;
+  --on-turq: #ffffff; --on-orange: #ffffff;
+  --done-bg: transparent; --sticker: #dbeaf8; --on-sticker: #0a4f8a;
+  --scribble: transparent; --hand: #5f6368;
+}
+@media (prefers-color-scheme: dark) {
+  [data-theme="gconnect"] {
+    --bg: #121212; --surface: #1e1e1e; --surface2: #2a2a2a; --line: #2c2c2c; --line2: #3c3c3c;
+    --text: #f2f2f2; --muted: #a8a8a8; --dim: #767676;
+    --turq: #3d9bf0; --emer: #3d9bf0; --orange: #f5a623;
+    --on-turq: #ffffff; --on-orange: #1a1000;
+    --sticker: #0b4d8f; --on-sticker: #cfe5ff; --hand: #a8a8a8;
+  }
+}
+[data-theme="gconnect"] header { border-bottom: 0; }
+[data-theme="gconnect"] .title h1 { font-weight: 500; font-size: 22px; text-transform: none; letter-spacing: 0; }
+[data-theme="gconnect"] .tabs { background: transparent; border-radius: 0; padding: 0; gap: 0; border-bottom: 1px solid var(--line); }
+[data-theme="gconnect"] .tab { border-radius: 0; height: 40px; font-weight: 500; font-size: 14px; text-transform: uppercase; letter-spacing: .04em; border-bottom: 3px solid transparent; }
+[data-theme="gconnect"] .tab.on { background: transparent; color: var(--turq); border-bottom-color: var(--turq); }
+[data-theme="gconnect"] .block, [data-theme="gconnect"] .q-card { border: 0; border-radius: 8px; box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+[data-theme="gconnect"] .bhead .lbl { color: var(--muted); }
+[data-theme="gconnect"] .thead { text-transform: uppercase; letter-spacing: .06em; }
+[data-theme="gconnect"] .nm { font-weight: 500; font-size: 14.5px; }
+[data-theme="gconnect"] .icon-btn { border-radius: 8px; border-color: var(--line2); }
+[data-theme="gconnect"] .btn { border-radius: 6px; text-transform: uppercase; letter-spacing: .04em; font-weight: 600; font-size: 13.5px; }
+[data-theme="gconnect"] .btn.org { background: var(--surface); color: var(--turq); border: 1px solid var(--turq); }
+[data-theme="gconnect"] .btn.ghost, [data-theme="gconnect"] .btn.sec { color: var(--turq); border-color: var(--line2); background: transparent; }
+[data-theme="gconnect"] .opt { border-radius: 18px; background: transparent; font-weight: 500; }
+[data-theme="gconnect"] .opt.warn.on { background: var(--orange); border-color: var(--orange); color: var(--on-orange); }
+[data-theme="gconnect"] .sticker { font: 600 11px/1 'Roboto', system-ui, sans-serif; padding: 3px 7px; border-radius: 10px; transform: none; vertical-align: 2px; box-shadow: none; }
+[data-theme="gconnect"] .q-card .qt .n { color: var(--turq); }
+[data-theme="gconnect"] .rirgrid button { border-radius: 50%; width: 54px; justify-self: center; }
+[data-theme="gconnect"] .rirgrid button.on { background: var(--turq); color: var(--on-turq); border-color: var(--turq); }
+[data-theme="gconnect"] .ck { border-width: 2px; }
+[data-theme="gconnect"] .box { border-radius: 3px; }
+[data-theme="gconnect"] .sheet { border-radius: 12px 12px 0 0; border-top: 0; }
+
+/* ---- Garmin, часы: чёрный экран, крупные контрастные цифры, цвета зон ---- */
+[data-theme="gwatch"] {
+  --bg: #000000; --surface: #000000; --surface2: #161616; --line: #262626; --line2: #3a3a3a;
+  --text: #ffffff; --muted: #b3b3b3; --dim: #7a7a7a;
+  --turq: #12b5f5; --emer: #2fd25a; --orange: #ff8a00;
+  --on-turq: #000000; --on-orange: #000000;
+  --done-bg: transparent; --sticker: #2fd25a; --on-sticker: #000000;
+  --scribble: transparent; --hand: #12b5f5;
+}
+[data-theme="gwatch"] .title h1 { font-weight: 800; font-size: 26px; letter-spacing: .02em; font-stretch: condensed; }
+[data-theme="gwatch"] .tabs { background: transparent; gap: 6px; padding: 0; }
+[data-theme="gwatch"] .tab { border: 2px solid var(--line2); border-radius: 18px; color: var(--text); text-transform: uppercase; font-weight: 800; letter-spacing: .04em; }
+[data-theme="gwatch"] .tab.on { border-color: var(--turq); background: var(--turq); color: #000; }
+[data-theme="gwatch"] .prog { height: 5px; background: #1a1a1a; }
+[data-theme="gwatch"] .prog i { background: linear-gradient(90deg, #12b5f5, #2fd25a 35%, #ffd400 60%, #ff8a00 80%, #ff2d2d); background-size: 100vw 100%; }
+[data-theme="gwatch"] .block, [data-theme="gwatch"] .q-card { border: 0; border-radius: 0; border-top: 1px solid var(--line); background: transparent; }
+[data-theme="gwatch"] .bhead .lbl { color: var(--turq); }
+[data-theme="gwatch"] .thead { text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+[data-theme="gwatch"] .nm { font-weight: 700; font-size: 14.5px; text-transform: uppercase; letter-spacing: .01em; font-stretch: condensed; }
+[data-theme="gwatch"] .cell { font-weight: 800; font-size: 16px; }
+[data-theme="gwatch"] .cell small { color: var(--muted); }
+[data-theme="gwatch"] .icon-btn { border: 2px solid var(--line2); }
+[data-theme="gwatch"] .btn { border-radius: 26px; text-transform: uppercase; font-weight: 800; letter-spacing: .05em; }
+[data-theme="gwatch"] .btn.org { background: #000; color: var(--orange); border: 2px solid var(--orange); }
+[data-theme="gwatch"] .btn.ghost, [data-theme="gwatch"] .btn.sec { border: 2px solid var(--line2); }
+[data-theme="gwatch"] .opt { background: #000; border: 2px solid var(--line2); font-weight: 700; }
+[data-theme="gwatch"] .opt.on { background: #fff; color: #000; border-color: #fff; }
+[data-theme="gwatch"] .opt.warn.on { background: var(--orange); border-color: var(--orange); color: #000; }
+[data-theme="gwatch"] .ck { border-width: 2px; }
+[data-theme="gwatch"] .ck.on { background: var(--emer); border-color: var(--emer); color: #000; }
+[data-theme="gwatch"] .sticker { font: 800 11px/1 'Roboto', system-ui, sans-serif; padding: 3px 7px; border-radius: 4px; transform: none; vertical-align: 2px; box-shadow: none; }
+[data-theme="gwatch"] .sticker.r0 { background: #ff2d2d; } [data-theme="gwatch"] .sticker.r1 { background: #ff8a00; }
+[data-theme="gwatch"] .sticker.r2 { background: #ffd400; } [data-theme="gwatch"] .sticker.r3 { background: #2fd25a; } [data-theme="gwatch"] .sticker.r4 { background: #12b5f5; }
+[data-theme="gwatch"] .rirgrid button { border: 2px solid var(--line2); background: #000; border-radius: 50%; width: 56px; justify-self: center; font-size: 22px; }
+[data-theme="gwatch"] .rirgrid button.on { background: var(--turq); border-color: var(--turq); color: #000; }
+[data-theme="gwatch"] .sheet { background: #0b0b0b; border-top: 2px solid var(--turq); }
+[data-theme="gwatch"] input, [data-theme="gwatch"] textarea { background: #111; border-color: var(--line2); }
+[data-theme="gwatch"] .more .note { border-color: var(--line2); }
 /* ---- Galaxy (One UI) ---- */
 [data-theme="galaxy"] {
   --bg: #f4f4f6; --surface: #ffffff; --surface2: #f0f0f3; --line: #ebebee; --line2: #d9d9de;
@@ -223,6 +308,15 @@ header { position: sticky; top: 0; z-index: 20; background: var(--bg); padding-t
 .rirgrid button.on { background: var(--orange); color: var(--on-orange); border-color: var(--orange); }
 .sheet-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
 .sheet-row.one { grid-template-columns: 1fr; }
+.themes { display: flex; flex-direction: column; gap: 8px; }
+.th { display: grid; grid-template-columns: 48px 1fr 22px; gap: 12px; align-items: center; text-align: left; padding: 10px 12px; border: 1px solid var(--line2); border-radius: 14px; background: var(--surface2); }
+.th.on { border-color: var(--turq); }
+.th .sw { width: 48px; height: 48px; border-radius: 12px; border: 1px solid rgba(128,128,128,.35); display: flex; align-items: flex-end; justify-content: center; gap: 4px; padding-bottom: 8px; }
+.th .sw i { width: 12px; height: 12px; border-radius: 50%; }
+.th .tx b { display: block; font-size: 14.5px; }
+.th .tx small { display: block; color: var(--muted); font-size: 12px; margin-top: 2px; line-height: 1.3; }
+.th .rd { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--line2); }
+.th.on .rd { border-color: var(--turq); box-shadow: inset 0 0 0 4px var(--surface2); background: var(--turq); }
 .sheet-note { margin-top: 12px; }
 .opts.grip { gap: 6px; }
 
@@ -283,6 +377,18 @@ header { position: sticky; top: 0; z-index: 20; background: var(--bg); padding-t
 
 .toast { transition: opacity .2s; pointer-events: none; position: fixed; left: 50%; bottom: calc(86px + env(safe-area-inset-bottom)); transform: translateX(-50%); z-index: 60; background: var(--text); color: var(--bg); padding: 9px 14px; border-radius: 12px; font-weight: 600; font-size: 13px; white-space: nowrap; }
 .hidden { display: none !important; }
+.cheat { padding: 0 !important; overflow: hidden; }
+.cheat-h { display: grid; grid-template-columns: 1fr 20px; gap: 10px; align-items: center; width: 100%; padding: 13px 14px 6px; text-align: left; font-size: 14px; }
+.cheat-h .chev { transition: transform .2s; color: var(--muted); } .cheat-h .chev.open { transform: rotate(180deg); }
+.cheat-p { padding: 0 14px 12px; color: var(--muted); font-size: 12px; }
+.cheat-b { padding: 4px 14px 14px; }
+.cheat-t { font-weight: 700; font-size: 13.5px; margin: 10px 0 4px; }
+.cheat-b p { color: var(--muted); font-size: 12px; line-height: 1.4; margin-bottom: 8px; }
+.rpe-bar { height: 6px; border-radius: 3px; margin: 4px 0 8px; background: linear-gradient(90deg, #2f8fe8, #2fc28a 30%, #e6c21a 55%, #f29a17 70%, #d92d3a); }
+.cr { display: grid; grid-template-columns: 40px 1fr; gap: 10px; align-items: center; padding: 5px 0; border-bottom: 1px solid var(--line); font-size: 13px; line-height: 1.3; }
+.cr:last-child { border-bottom: 0; }
+.cn { height: 24px; border-radius: 12px; color: #fff; font-weight: 800; font-size: 12.5px; display: flex; align-items: center; justify-content: center; text-shadow: 0 1px 1px rgba(0,0,0,.25); }
+.cn.feel { background: #0b4d8f; color: #cfe5ff; text-shadow: none; }
 .arc { padding: 0 !important; overflow: hidden; }
 .arc-h { display: grid; grid-template-columns: 1fr auto 20px; gap: 10px; align-items: center; width: 100%; padding: 13px 14px; text-align: left; }
 .arc-h span { color: var(--muted); font-size: 12.5px; }
@@ -343,6 +449,13 @@ const WARM = [
 const WARM_NOTE = 'В выпадах колено держать над стопой. Остальные суставы и мышцы готовят разминочные подходы и первые повторы упражнений.';
 const STEP = { leg: 10, bar: 2.5, machine: 2.5, db: 2, bw: 0 };
 const RIRS = ['0', '1', '2', '3', '4+'];
+const THEMES = [
+  { id: 'ddx', name: 'DDX', desc: 'тёмная, бирюза и оранжевый, рукописные акценты', sw: ['#0c1413', '#2fd6c9', '#ff7a2f'] },
+  { id: 'graphite', name: 'Графит', desc: 'спокойная тёмно-серая, без брендинга', sw: ['#17181b', '#8db4e0', '#e0b070'] },
+  { id: 'galaxy', name: 'Galaxy', desc: 'как системные приложения Samsung; светлая или тёмная по системе', sw: ['#f4f4f6', '#0381fe', '#000000'] },
+  { id: 'gconnect', name: 'Garmin Connect', desc: 'как приложение Garmin Connect; светлая или тёмная по системе', sw: ['#121212', '#3d9bf0', '#f5a623'] },
+  { id: 'gwatch', name: 'Garmin, часы', desc: 'чёрный экран, крупные контрастные цифры, цвета зон', sw: ['#000000', '#12b5f5', '#2fd25a'] },
+];
 
 /* ---------- state ---------- */
 const blankS = () => ({ rirNotes: {}, dev: '', devC: '', tech: '', techC: '', pain: '', painWhere: '', painEx: [], painScore: '', painC: '', comment: '', out: '' });
@@ -441,6 +554,7 @@ function render() {
   else if (UI.page === 'archive') h = pageArchive();
   else h = UI.edit ? pageEditor() : pageMain();
   if (UI.sheet) h += sheetRir();
+  if (UI.themeSheet) h += sheetTheme();
   const y = window.scrollY, pg = $app.querySelector('.page'), py = pg ? pg.scrollTop : 0, samePage = UI._lastPage === UI.page;
   $app.innerHTML = h;
   $app.querySelectorAll('textarea').forEach(autosize);
@@ -476,7 +590,7 @@ function pageMain() {
     h += `<div class="ex ${isDone ? 'done' : ''}">
       <div class="row" data-a="open" data-id="${e.id}">
         <span class="num">${base.indexOf(e) + 1}</span>
-        <div><div class="nm">${esc(e.name)}${isDone && rr[e.id] != null ? `<button class="sticker" data-a="rir" data-id="${e.id}">RIR ${rr[e.id]}</button>` : ''}</div>${gripsOf(e) ? `<div class="wu">${esc(gripOf(e))}</div>` : ''}${wu}</div>
+        <div><div class="nm">${esc(e.name)}${isDone && rr[e.id] != null ? `<button class="sticker r${parseInt(rr[e.id], 10)}" data-a="rir" data-id="${e.id}">RIR ${rr[e.id]}</button>` : ''}</div>${gripsOf(e) ? `<div class="wu">${esc(gripOf(e))}</div>` : ''}${wu}</div>
         <div class="cell">${repsTxt(e)}${repsSub(e) ? `<small>${repsSub(e)}</small>` : ''}</div>
         <div class="cell">${wMain(e)}<small>${wSub(e)}</small></div>
         <div class="cell rest">${esc(e.rest)}</div>
@@ -500,6 +614,16 @@ function sheetRir() {
     <div class="rirgrid">${RIRS.map(v => `<button class="${cur === v ? 'on' : ''}" data-a="setRir" data-v="${v}">${v}</button>`).join('')}</div>
     ${withNote ? `<textarea class="sheet-note" rows="2" placeholder="комментарий к упражнению" data-in="rirNote" data-id="${e.id}">${esc(note)}</textarea>` : ''}
     <div class="sheet-row ${withNote ? 'one' : ''}">${withNote ? '' : `<button class="btn ghost" data-a="sheetNote">+ комментарий</button>`}<button class="btn pri" data-a="closeSheet">Сохранить</button></div>
+  </div></div>`;
+}
+
+function sheetTheme() {
+  return `<div class="ov" data-a="closeTheme"><div class="sheet" data-stop="1">
+    <h3>Тема оформления</h3><p>Выбранная тема применяется сразу.</p>
+    <div class="themes">${THEMES.map(t => `<button class="th ${S.theme === t.id ? 'on' : ''}" data-a="setTheme" data-v="${t.id}">
+      <span class="sw" style="background:${t.sw[0]}"><i style="background:${t.sw[1]}"></i><i style="background:${t.sw[2]}"></i></span>
+      <span class="tx"><b>${esc(t.name)}</b><small>${esc(t.desc)}</small></span><span class="rd"></span></button>`).join('')}</div>
+    <div class="sheet-row one"><button class="btn pri" data-a="closeTheme">Готово</button></div>
   </div></div>`;
 }
 
@@ -629,11 +753,47 @@ function pageArchive() {
 }
 function plural(n, a, b, c) { const m = n % 10, mm = n % 100; return m === 1 && mm !== 11 ? a : m >= 2 && m <= 4 && (mm < 12 || mm > 14) ? b : c; }
 
+/* --- шпаргалка по оценкам Garmin после бега (только для чтения, в отчёт не входит) --- */
+const RPE = [
+  ['1–2', '#2f8fe8', 'мог бы так часами'],
+  ['3', '#2fb5e8', 'спокойно ещё час и больше'],
+  ['4', '#2fc28a', 'ещё около часа, но уже как работа'],
+  ['5', '#5bc236', 'ещё 30–40 мин или много отрезков'],
+  ['6', '#e6c21a', 'ещё 15–20 мин или 3–4 отрезка'],
+  ['7', '#f29a17', 'ещё 5–10 мин или 1–2 отрезка'],
+  ['8', '#f0701a', 'ещё отрезок, с большим трудом'],
+  ['9', '#eb4a2a', 'ничего не мог бы добавить без потери темпа'],
+  ['10', '#d92d3a', 'выложился полностью, как на финише'],
+];
+const FEEL = [
+  ['1', 'Очень слабым', 'заметно хуже обычного, пришлось сократить или сбавить'],
+  ['2', 'Слабым', 'тяжёлые ноги, вялость; выполнил, но давалось хуже обычного'],
+  ['3', 'Нормально', 'как обычно; ставить по умолчанию'],
+  ['4', 'Сильным', 'свежо, легче обычного'],
+  ['5', 'Очень сильным', 'лучший день, легко мог бы больше'],
+];
+function cheatSheet() {
+  const open = !!UI.cheat;
+  let h = `<div class="q-card cheat"><button class="cheat-h" data-a="cheat"><b>Шпаргалка: оценки на часах после бега</b><span class="chev ${open ? 'open' : ''}">${I.chev}</span></button>`;
+  if (!open) return h + `<div class="cheat-p">Что значат баллы «Воспринимаемые усилия» и «Как вы себя чувствовали». В отчёт не входит.</div></div>`;
+  h += `<div class="cheat-b">
+    <div class="cheat-t">Воспринимаемые усилия (тяжесть)</div>
+    <p>Одна оценка за всю тренировку, не средняя по времени. Вопрос: насколько тяжёлой была тренировка целиком и сколько ещё я мог бы сделать. Тяжёлые части весят больше; разминка, заминка и отдых снижают оценку максимум на балл. На пульс не смотреть.</p>
+    <div class="rpe-bar"></div>
+    ${RPE.map(([n, c, t]) => `<div class="cr"><span class="cn" style="background:${c}">${n}</span><span>${t}</span></div>`).join('')}
+    <div class="cheat-t">Как вы себя чувствовали (самочувствие)</div>
+    <p>Как работало тело во время бега по сравнению с обычным: ноги, лёгкость, бодрость. Не до тренировки и не усталость после неё.</p>
+    ${FEEL.map(([n, l, t]) => `<div class="cr"><span class="cn feel">${n}</span><span><b>${l}</b>: ${t}</span></div>`).join('')}
+  </div>`;
+  return h + `</div>`;
+}
+
 /* --- run report --- */
 function pageRun() {
   const f = S.rForm, tm = f.tm === 'электрическая' || f.tm === 'изогнутая';
   let n = 0; const qn = () => `<span class="n hand">${++n}</span>`;
   let h = `<div class="page">${pageHead('Бег', 'отчёт · ' + today())}<div class="body wrap">`;
+  h += cheatSheet();
   h += `<div class="q-card"><div class="qt">${qn()}<b>Дорожка</b></div><div class="hint">только если бежал на беговом тренажёре; на улице ничего не выбирать</div>
     ${opts(f, 'tm', ['электрическая', 'изогнутая'])}
     ${f.tm === 'электрическая' ? `<div class="grid3" style="margin-top:10px"><div><label>Мин. скорость, км/ч</label><input inputmode="decimal" value="${esc(f.tmMin)}" data-in="f" data-f="tmMin"></div><div><label>Макс. скорость, км/ч</label><input inputmode="decimal" value="${esc(f.tmMax)}" data-in="f" data-f="tmMax"></div><div><label>Уклон, %</label><input inputmode="decimal" value="${esc(f.tmIncl)}" data-in="f" data-f="tmIncl"></div></div>` : ''}
@@ -723,7 +883,9 @@ document.addEventListener('click', ev => {
   if (!UI.edit && S_ACTS.concat(['genR']).includes(a)) { if (UI.page === 'run') touch('run'); else if (a !== 'genR') touch('s' + S.day); }
   switch (a) {
     case 'day': S.day = +t.dataset.i; S.warmOpen = null; UI.open = {}; save(); break;
-    case 'theme': { const T = ['ddx', 'graphite', 'galaxy'], N = { ddx: 'Тема DDX', graphite: 'Тема «Графит»', galaxy: 'Тема Galaxy' }; S.theme = T[(T.indexOf(S.theme) + 1) % T.length]; save(); render(); toast(N[S.theme]); return; }
+    case 'theme': UI.themeSheet = true; break;
+    case 'setTheme': S.theme = t.dataset.v; save(); break;
+    case 'closeTheme': UI.themeSheet = false; break;
     case 'edit': UI.edit = !UI.edit; UI.keepScrollReset = true; window.scrollTo(0, 0); break;
     case 'warmToggle': { const wm = S.warm[S.day] || {}; const all = WARM.every((_, i) => wm[i]); S.warmOpen = !(S.warmOpen ?? !all); save(); break; }
     case 'warm': { const m = { ...(S.warm[S.day] || {}) }; m[t.dataset.i] = !m[t.dataset.i]; S.warm[S.day] = m; if (WARM.every((_, i) => m[i])) S.warmOpen = false; save(); break; }
@@ -759,6 +921,7 @@ document.addEventListener('click', ev => {
     case 'finishS': if (!confirm('Завершить тренировку? Отчёт уйдёт в архив, отметки и ответы этого дня сбросятся.')) return;
       { const had = strengthHasData(S.day); closeStrength(S.day); S.warmOpen = null; UI.cOpen = {}; UI.page = null; UI.keepScrollReset = true; save(); render(); toast(had ? 'Отчёт сохранён в архив' : 'Отметки сброшены'); return; }
     case 'clearR': if (!confirm('Завершить отчёт по бегу? Он уйдёт в архив, ответы сбросятся.')) return; { const had = runHasData(); closeRun(); UI.cOpen = {}; UI.page = null; UI.keepScrollReset = true; save(); render(); toast(had ? 'Отчёт сохранён в архив' : 'Ответы очищены'); return; }
+    case 'cheat': UI.cheat = !UI.cheat; break;
     case 'goArchive': UI.page = 'archive'; UI.keepScrollReset = true; window.scrollTo(0, 0); break;
     case 'arcOpen': UI.arcOpen = UI.arcOpen === id ? null : id; break;
     case 'arcCopy': { const e = (S.archive || []).find(x => x.id === id); if (e) copyText(e.text).then(ok => toast(ok ? 'Скопировано' : 'Не удалось скопировать')); return; }
@@ -823,6 +986,7 @@ window.addEventListener('pagehide', save);
 function goBack() {
   const f = document.activeElement;
   if (f && /^(INPUT|TEXTAREA)$/.test(f.tagName)) { f.blur(); return true; }
+  if (UI.themeSheet) { UI.themeSheet = false; render(); return true; }
   if (UI.sheet) { UI.sheet = null; UI.sheetNote = false; render(); return true; }
   if (UI.page === 'archive' && UI.arcOpen) { UI.arcOpen = null; render(); return true; }
   if (UI.page) { UI.page = null; UI.keepScrollReset = true; window.scrollTo(0, 0); render(); return true; }
@@ -840,8 +1004,8 @@ function goBack() {
 (function keyboardFix() {
   // Клавиатура. В APK плагин @capacitor/keyboard сообщает о показе/скрытии клавиатуры и её высоте сразу,
   // а режим resizeOnFullScreen заставляет Android уменьшать окно под клавиатуру. Логика:
-  //  1) окно уменьшилось — берём реальную видимую высоту; 2) не уменьшилось, но плагин дал высоту — используем её;
-  //  3) плагина нет (старая сборка) — через 0,6 с оцениваем клавиатуру в 40% экрана.
+  //  1) окно уменьшилось: берём реальную видимую высоту; 2) не уменьшилось, но плагин дал высоту: используем её;
+  //  3) плагина нет (старая сборка): через 0,6 с оцениваем клавиатуру в 40% экрана.
   const C = window.Capacitor, native = !!(C && C.isNativePlatform && C.isNativePlatform());
   const vv = window.visualViewport, root = document.documentElement;
   let baseH = window.innerHeight, kbShown = false, kbH = 0, gotEvent = false, focusAt = 0, offT, fbT;
@@ -898,7 +1062,7 @@ function goBack() {
 })();
 document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') expire(); });
 setInterval(expire, 10 * 60 * 1000);
-try { matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { if (S.theme === 'galaxy') render(); }); } catch (e) {}
+try { matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { if (S.theme === 'galaxy' || S.theme === 'gconnect') render(); }); } catch (e) {}
 expire();
 render();
 </script>
