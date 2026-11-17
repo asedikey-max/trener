@@ -308,6 +308,12 @@ header { position: sticky; top: 0; z-index: 20; background: var(--bg); padding-t
 .rirgrid button.on { background: var(--orange); color: var(--on-orange); border-color: var(--orange); }
 .sheet-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
 .sheet-row.one { grid-template-columns: 1fr; }
+.opts.issues { gap: 6px; margin-top: 2px; }
+.rir-row .iss-row { grid-column: 1 / -1; display: flex; flex-direction: column; gap: 6px; }
+.rir-row .iss-row .opts.grip { margin-top: 0; }
+.rir-row .opts.issues { margin-top: 0; flex-wrap: wrap; }
+.iss-prev { margin-top: 8px; font-size: 12px; color: var(--muted); }
+.sheet > .sub-l { margin-top: 12px; }
 .themes { display: flex; flex-direction: column; gap: 8px; }
 .th { display: grid; grid-template-columns: 48px 1fr 22px; gap: 12px; align-items: center; text-align: left; padding: 10px 12px; border: 1px solid var(--line2); border-radius: 14px; background: var(--surface2); }
 .th.on { border-color: var(--turq); }
@@ -458,7 +464,12 @@ const THEMES = [
 ];
 
 /* ---------- state ---------- */
-const blankS = () => ({ rirNotes: {}, dev: '', devC: '', tech: '', techC: '', pain: '', painWhere: '', painEx: [], painScore: '', painC: '', comment: '', out: '' });
+const ISSUES = [{ k: 'tech', label: 'проблемы с техникой', text: 'ломалась техника' }, { k: 'rom', label: 'снижена амплитуда', text: 'снижена амплитуда' }];
+const issuesOf = (f, id) => ((f.rirFlags || {})[id] || []).filter(k => ISSUES.some(i => i.k === k));
+const issueText = (f, id) => { const t = ISSUES.filter(i => issuesOf(f, id).includes(i.k)).map(i => i.text); return t.length ? 'в последних повторах ' + t.join(' и ') : ''; };
+const exNote = (f, id) => [issueText(f, id), ((f.rirNotes || {})[id] || '').trim()].filter(Boolean).join('; ');
+function issueChips(f, e, small) { const cur = issuesOf(f, e.id); return `<div class="opts issues">${ISSUES.map(i => `<button class="opt warn ${small ? 'sm' : ''} ${cur.includes(i.k) ? 'on' : ''}" data-a="setIssue" data-id="${e.id}" data-v="${i.k}">${i.label}</button>`).join('')}</div>`; }
+const blankS = () => ({ rirNotes: {}, rirFlags: {}, dev: '', devC: '', pain: '', painWhere: '', painEx: [], painScore: '', painC: '', comment: '', out: '' });
 const blankR = () => ({ tm: '', tmMin: '', tmMax: '', tmIncl: '', distTm: '', distWatch: '', tmC: '', exec: '', execC: '', hr: '', hrC: '', cond: [], condC: '', pain: '', painWhere: '', painWhen: '', painScore: '', painC: '', comment: '', out: '' });
 function load() {
   let s = null;
@@ -475,7 +486,7 @@ const UI = { edit: false, open: {}, sheet: null, sheetNote: false, page: null, c
 function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
 const KEEP_MS = 12 * 3600 * 1000;
 function touch(key) { S.touch = S.touch || {}; const now = Date.now(), t = S.touch[key]; S.touch[key] = { first: t ? t.first : now, last: now }; }
-function strengthHasData(di) { const f = S.sForm[di] || {}; return Object.keys(S.done[di] || {}).length > 0 || Object.keys(S.rir[di] || {}).length > 0 || !!(f.out || f.dev || f.tech || f.pain || f.comment || Object.values(f.rirNotes || {}).some(Boolean)); }
+function strengthHasData(di) { const f = S.sForm[di] || {}; return Object.keys(S.done[di] || {}).length > 0 || Object.keys(S.rir[di] || {}).length > 0 || !!(f.out || f.dev || f.pain || f.comment || Object.values(f.rirFlags || {}).some(a => a && a.length) || Object.values(f.rirNotes || {}).some(Boolean)); }
 function runHasData() { const f = S.rForm || {}; return !!(f.out || f.tm || f.exec || f.hr || (f.cond || []).length || f.pain || f.comment || f.distTm || f.distWatch); }
 function archive(kind, di, text) {
   const t = (S.touch || {})[kind === 'run' ? 'run' : 's' + di];
@@ -612,7 +623,9 @@ function sheetRir() {
     <p>Сколько ещё повторов смог бы сделать с хорошей техникой в последнем рабочем подходе. Без выбора упражнение просто останется отмеченным.</p>
     ${gripsOf(e) ? `<div class="sub-l">Рукоять</div>${gripChips(e)}<div style="height:12px"></div>` : ''}
     <div class="rirgrid">${RIRS.map(v => `<button class="${cur === v ? 'on' : ''}" data-a="setRir" data-v="${v}">${v}</button>`).join('')}</div>
-    ${withNote ? `<textarea class="sheet-note" rows="2" placeholder="комментарий к упражнению" data-in="rirNote" data-id="${e.id}">${esc(note)}</textarea>` : ''}
+    <div class="sub-l">Проблемы в последних повторах последнего подхода</div>${issueChips(f, e)}
+    ${issueText(f, e.id) ? `<div class="iss-prev">В отчёт: ${esc(exNote(f, e.id))}</div>` : ''}
+    ${withNote ? `<textarea class="sheet-note" rows="2" placeholder="свой комментарий к упражнению" data-in="rirNote" data-id="${e.id}">${esc(note)}</textarea>` : ''}
     <div class="sheet-row ${withNote ? 'one' : ''}">${withNote ? '' : `<button class="btn ghost" data-a="sheetNote">+ комментарий</button>`}<button class="btn pri" data-a="closeSheet">Сохранить</button></div>
   </div></div>`;
 }
@@ -697,22 +710,19 @@ function pageStrength() {
   let h = `<div class="page">${pageHead('Отчёт', PROG[S.day].label + ' · ' + today())}<div class="body wrap">`;
   h += `<div class="q-card"><div class="qt"><span class="n hand">1</span><b>Запас (RIR)</b></div><div class="hint">в последнем рабочем подходе</div>
     ${list.map(e => { const note = (f.rirNotes || {})[e.id] || '', open = note || UI.cOpen['rir_' + e.id];
-      return `<div class="rir-row"><div class="nm2">${esc(e.short || e.name)}${dn[e.id] ? '' : '<small>не отмечено выполненным</small>'}${gripChips(e, true)}${open ? '' : `<button class="addc sm" data-a="addRirNote" data-id="${e.id}">+ комментарий</button>`}</div><div class="opts">${RIRS.map(v => `<button class="opt sm ${rr[e.id] === v ? 'on' : ''}" data-a="rirSet" data-id="${e.id}" data-v="${v}">${v}</button>`).join('')}</div>${open ? `<input class="rir-note" value="${esc(note)}" placeholder="комментарий к ${esc(e.short || e.name)}" data-in="rirNote" data-id="${e.id}">` : ''}</div>`; }).join('')}</div>`;
+      return `<div class="rir-row"><div class="nm2">${esc(e.short || e.name)}${dn[e.id] ? '' : '<small>не отмечено выполненным</small>'}${open ? '' : `<button class="addc sm" data-a="addRirNote" data-id="${e.id}">+ комментарий</button>`}</div><div class="opts">${RIRS.map(v => `<button class="opt sm ${rr[e.id] === v ? 'on' : ''}" data-a="rirSet" data-id="${e.id}" data-v="${v}">${v}</button>`).join('')}</div><div class="iss-row">${gripChips(e, true)}${issueChips(f, e, true)}</div>${open ? `<input class="rir-note" value="${esc(note)}" placeholder="комментарий к ${esc(e.short || e.name)}" data-in="rirNote" data-id="${e.id}">` : ''}</div>`; }).join('')}</div>`;
   const missed = all.filter(e => !dn[e.id]);
   h += `<div class="q-card"><div class="qt"><span class="n hand">2</span><b>Отклонения от плана</b></div>
     ${opts(f, 'dev', ['нет', 'есть'], { warn: ['есть'] })}
     ${f.dev === 'есть' && missed.length && !f.devC ? `<button class="addc" data-a="fillMissed">+ вписать невыполненные: ${esc(missed.map(e => e.short || e.name).join(', '))}</button>` : ''}
     ${cmt(f, 'devC', 'что и почему; если в часах записан не тот вес или повторы, то фактические', f.dev === 'есть')}</div>`;
-  h += `<div class="q-card"><div class="qt"><span class="n hand">3</span><b>Техника</b></div>
-    ${opts(f, 'tech', ['ок', 'были проблемы'], { warn: ['были проблемы'] })}
-    ${cmt(f, 'techC', 'что шло не так', f.tech === 'были проблемы')}</div>`;
-  h += `<div class="q-card"><div class="qt"><span class="n hand">4</span><b>Боль / дискомфорт</b></div>
+  h += `<div class="q-card"><div class="qt"><span class="n hand">3</span><b>Боль / дискомфорт</b></div>
     ${opts(f, 'pain', ['нет', 'есть'], { warn: ['есть'] })}
     ${f.pain === 'есть' ? `<div class="sub-l">Где</div><input value="${esc(f.painWhere)}" placeholder="колено, плечо, поясница…" data-in="f" data-f="painWhere">
       <div class="sub-l">В каком упражнении</div><div class="opts">${all.map(e => `<button class="opt sm ${(f.painEx || []).includes(e.id) ? 'on' : ''}" data-a="painEx" data-id="${e.id}">${esc(e.short || e.name)}</button>`).join('')}</div>
       <div class="sub-l">Сила, 0–10 (1–2 чувствуется · 3–4 мешает · 5+ меняет технику)</div>${scoreOpts(f, 'painScore')}` : ''}
     ${cmt(f, 'painC', 'подробности')}</div>`;
-  h += `<div class="q-card"><div class="qt"><span class="n hand">5</span><b>Комментарий</b></div>
+  h += `<div class="q-card"><div class="qt"><span class="n hand">4</span><b>Комментарий</b></div>
     <textarea rows="3" placeholder="состояние, расхождение готовности с ощущениями, всё, чего нет в Garmin" data-in="f" data-f="comment">${esc(f.comment)}</textarea></div>`;
   h += `<div class="actions"><button class="btn pri full" data-a="genS">${f.out ? 'Пересобрать отчёт' : 'Сформировать отчёт'}</button></div>`;
   h += outBlock(f);
@@ -729,9 +739,8 @@ function strengthText(di = S.day) {
     pain = parts.join(', ') || 'есть';
   } else if (!f.pain) pain = '_';
   return [
-    ['Запас (RIR):', ...all.filter(e => !e.noRir).map(e => { const n = ((f.rirNotes || {})[e.id] || '').trim(); return `${e.short || e.name}${gripsOf(e) ? ' (' + gripOf(e, di) + ')' : ''} ${rr[e.id] ?? '_'}${n ? ' | ' + n : ''}`; })].join('\n'),
+    ['Запас (RIR):', ...all.filter(e => !e.noRir).map(e => { const n = exNote(f, e.id); return `${e.short || e.name}${gripsOf(e) ? ' (' + gripOf(e, di) + ')' : ''} ${rr[e.id] ?? '_'}${n ? ' | ' + n : ''}`; })].join('\n'),
     f.dev === 'есть' ? `Отклонения от плана: ${(f.devC || '').trim() || 'есть'}` : withC(`Отклонения от плана: ${f.dev || '_'}`, f.devC),
-    f.tech === 'были проблемы' ? `Техника: ${(f.techC || '').trim() || 'были проблемы'}` : withC(`Техника: ${f.tech || '_'}`, f.techC),
     withC(`Боль/дискомфорт: ${pain}`, f.painC),
     `Комментарий: ${(f.comment || '').trim()}`,
   ].join('\n');
@@ -875,7 +884,7 @@ async function download(name, text, type) {
 }
 function curForm() { return UI.page === 'run' ? S.rForm : sForm(); }
 
-const S_ACTS = ['done', 'setRir', 'rirSet', 'setGrip', 'warm', 'painEx', 'fillMissed', 'genS', 'opt'];
+const S_ACTS = ['done', 'setRir', 'rirSet', 'setGrip', 'setIssue', 'warm', 'painEx', 'fillMissed', 'genS', 'opt'];
 document.addEventListener('click', ev => {
   const t = ev.target.closest('[data-a]'); if (!t) return;
   if (t.dataset.a === 'closeSheet' && ev.target.closest('[data-stop]') && !ev.target.closest('button')) return;
@@ -899,6 +908,7 @@ document.addEventListener('click', ev => {
     case 'rir': UI.sheet = id; UI.sheetNote = false; break;
     case 'setRir': { const r = rir(); if (r[UI.sheet] === t.dataset.v) delete r[UI.sheet]; else r[UI.sheet] = t.dataset.v; save(); break; }
     case 'sheetNote': UI.sheetNote = true; render(); document.querySelector('.sheet-note')?.focus(); return;
+    case 'setIssue': { const f = sForm(), cur = issuesOf(f, id), v = t.dataset.v; f.rirFlags = { ...(f.rirFlags || {}), [id]: cur.includes(v) ? cur.filter(x => x !== v) : [...cur, v] }; save(); break; }
     case 'setGrip': { S.grip = S.grip || {}; S.grip[S.day] = { ...(S.grip[S.day] || {}), [id]: t.dataset.v }; save(); break; }
     case 'closeSheet': UI.sheet = null; UI.sheetNote = false; break;
     case 'goStrength': UI.page = 'strength'; UI.keepScrollReset = true; window.scrollTo(0, 0); break;
